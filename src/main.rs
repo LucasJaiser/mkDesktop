@@ -7,11 +7,15 @@ mod info;
 
 
 fn main() {
-
+    //Start guided Input mode, this is where the information to the .Desktop file is gathered.
     let info: AppInfo = guided_input();
+    //takes the struct and writes it to the actual file in the correct Location based on input 
     AppInfo::write_info_to_file(info)
 }
 
+//this function gathers information to the .Desktop file in a Guided form. 
+//it leads you through all field you will need in the file to be valid. 
+//Technically you only need Type, Name and Exec. But the rest is mostly Best Practice. 
 fn guided_input() -> AppInfo{
 
     let mut name = String::new(); 
