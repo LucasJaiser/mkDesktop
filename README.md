@@ -17,4 +17,8 @@ For now you have to compile the application your self. This can be done through 
 
 ## Contribution
 You can find more information about how to Contribute on this file.
+
+At the moment the application is just a little script, but there are lot more features planed right now. 
+If you want more information on what features are comeing or you want to contribute check out the issue section. 
+You are more then welcome to Contribute. 
  
