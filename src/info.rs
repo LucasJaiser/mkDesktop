@@ -53,7 +53,7 @@ impl AppInfo{
 
         if !icon_path.exists() { //First check if the file even is existing.
             println!("Path to file {} does not exist!", icon_path.to_str().unwrap());
-            panic!();
+            return "invalid".to_string();
         }else {
             //Convert to absolute path
             return icon_path.canonicalize().unwrap().to_str().unwrap().to_string();

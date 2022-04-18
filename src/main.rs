@@ -29,27 +29,39 @@ fn guided_input() -> AppInfo{
     stdin().read_line(&mut name).unwrap();
     name = name.trim_end().to_string();
 
-    println!("What type of programm is it? (Application, Link, Directory)");
-    stdin().read_line(&mut application_type).unwrap();
-    application_type = application_type.trim_end().to_string();
+    //Check for valid input
+    while application_type != "Application" || application_type != "Link" || application_type != "Directory" {
+        println!("What type of programm is it? (Application, Link, Directory)");
+        stdin().read_line(&mut application_type).unwrap();
+        application_type = application_type.trim_end().to_string();
+    }
+
 
     println!("Wich Categorie does it belong to? (Possible values are: AudioVideo, Audio, Video, Development, Education, Game, Graphics, Network, Office, Settings, System, Utility)");
     stdin().read_line(&mut categories).unwrap();
     categories = categories.trim_end().to_string();
 
-    println!("What should be executed?");
-    stdin().read_line(&mut exec).unwrap();
-    exec = exec.trim_end().to_string();
+    //Check for valid input
+    while Path::new(&exec.clone()).exists() && exec == "" {
+        println!("What should be executed?");
+        stdin().read_line(&mut exec).unwrap();
+        exec = exec.trim_end().to_string();
+    }
 
-    println!("Do you want to install it globally or only for your current user?");
-    stdin().read_line(&mut global).unwrap();
-    global = global.trim_end().to_string();
-
-    println!("Which Icon should be used?");
-    stdin().read_line(&mut icon).unwrap();
-    icon = icon.trim_end().to_string();
+    //check for valid input
+    while global != "global" || global != "local" {
+        println!("Do you want to install it globally or only for your current user? (valid input: global, local)");
+        stdin().read_line(&mut global).unwrap();
+        global = global.trim_end().to_string();
+    }
     
-    let _icon_path = AppInfo::get_absolute_icon_path(Path::new(&icon));
-    return AppInfo::new(name.clone(), exec.clone(), categories.clone(), application_type.clone(), _icon_path.clone(), global.clone());
+    while icon != "" && icon != "invalid"{
+        println!("Which Icon should be used?");
+        stdin().read_line(&mut icon).unwrap();
+        icon = icon.trim_end().to_string();
+    
+        icon = AppInfo::get_absolute_icon_path(Path::new(&icon));
+    }
+    return AppInfo::new(name.clone(), exec.clone(), categories.clone(), application_type.clone(), icon.clone(), global.clone());
 
 }
