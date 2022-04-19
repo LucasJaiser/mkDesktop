@@ -18,8 +18,7 @@ pub struct AppInfo{
     icon: String
 }
 
-//TODO put in seperate file
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Debug)]
 pub enum AppType{
     Application,
     Link,
@@ -28,7 +27,7 @@ pub enum AppType{
 
 
 impl AppType{
-    //TODO Unittest
+    ///Converts a AppType enum to String
     pub fn to_string(self) -> String{
         match self{
             AppType::Application => {return "Application".to_string();},
@@ -37,7 +36,7 @@ impl AppType{
         }
     }
     
-    //TODO Unittest
+    ///Converts a String to a AppType enum
     pub fn convert_app_type(app_type: &str) -> Result<AppType, String>{
         match app_type{
             "Application" => { return Ok(AppType::Application) },
@@ -50,7 +49,6 @@ impl AppType{
 
 impl AppInfo{
     
-    //TODO Unittest
     ///create a new Object of AppInfo
     pub fn new(name: String, exec: String, categories: String, application_type: AppType, icon: String, global: String) -> AppInfo{
         return AppInfo{name: name.clone(), categories: categories.clone(), application_type: application_type.clone(), exec: exec.clone(), global: global.clone(), icon: icon.clone() };
@@ -79,7 +77,6 @@ impl AppInfo{
         writeln!(file, "Icon={}", _info.icon.clone()).unwrap();
     }
 
-    //TODO unittest
     ///Helper function for getting a Absolute path from a Relativ Path
     pub fn get_absolute_icon_path(icon_path: &Path) -> String{
         if !icon_path.exists() { //First check if the file even is existing.
@@ -93,5 +90,35 @@ impl AppInfo{
     }
 }
 
+#[cfg(test)]
+mod test{
+    use crate::AppType; 
+    use crate::AppInfo;
+
+    #[test]
+    fn test_app_type_to_string(){
+        let app: AppType = AppType::Application;
+        assert_eq!(AppType::to_string(app),  String::from("Application"));
+        assert_ne!(AppType::Link.to_string(),  String::from("Application"));
+    }
+
+    #[test]
+    fn test_app_type_convert_to_enum(){
+        assert_eq!(AppType::convert_app_type("Application").unwrap(), AppType::Application);
+        assert_eq!(AppType::convert_app_type("Link").unwrap(), AppType::Link);
+        assert_eq!(AppType::convert_app_type("Directory").unwrap(), AppType::Directory);
+    }
+
+    #[test]
+    fn test_app_info_new(){
+        let info: AppInfo = AppInfo::new(String::from("name"), String::from("exec"), String::from("categories"), AppType::Application, String::from("icon"), String::from("global"));
+        assert_eq!(String::from("name"), info.name);
+        assert_eq!(String::from("exec"), info.exec);
+        assert_eq!(String::from("categories"), info.categories);
+        assert_eq!(AppType::Application, info.application_type);
+        assert_eq!(String::from("icon"), info.icon);
+        assert_eq!(String::from("global"), info.global);
+    }
+}
 
 
