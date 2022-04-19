@@ -16,10 +16,12 @@ You can find more information about valid Types and Categories here:
 [Categories](https://specifications.freedesktop.org/menu-spec/menu-spec-1.0.html#category-registry)
 
 ### CLI usage (mk_desktop --help)
-USAGE:
-    mk_desktop [OPTIONS] --name <NAME> --app-type <APP_TYPE> --exec <EXEC> --icon <ICON>
 
-OPTIONS:
+
+    USAGE:
+        mk_desktop [OPTIONS] --name <NAME> --app-type <APP_TYPE> --exec <EXEC> --icon <ICON>
+
+    OPTIONS:
     -a, --app-type <APP_TYPE>
             Application Type (possible values: Application, Link, Directory)
 
