@@ -1,3 +1,5 @@
+[![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](https://github.com/clap-rs/clap/blob/v3.1.9/LICENSE-MIT)
+
 # mkDesktop
 ## Description
 mkDesktop is a CLI Application written is Rust which turns your input into a .desktop file. After you install a application from github or compile the code yourself, you often find the application not showing in your application finder of your Desktop Environment. For that you need a .desktop file in a specific location. To help you creating one this application comes in handy. It putts you through a guided Experience of making such a file. You dont have to have knoledge of where this file goes, what is the syntax of the file or what are valid values. The Application putts you all through this.  
