@@ -9,6 +9,7 @@ use crate::info::AppType;
 mod info;
 
 
+
 #[derive(Parser)]
 #[clap(author="Lucas Jaiser", version="1.0", about, long_about = "A CLI tool to create .desktop files with ease")]
 struct Cli {
