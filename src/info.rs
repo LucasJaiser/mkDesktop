@@ -2,11 +2,6 @@ use std::fs::File;
 use std::io::prelude::*;
 use std::path::Path;
 
-
-//Paths for where the actuall .desktop files will go
-static GLOBAL_PATH: &str = "/usr/share/applications";
-static LOCAL_PATH: &str = "~/.local/share/applications";
-
 ///Struct wich holds all User input information
 #[derive(Clone)]
 pub struct AppInfo{
@@ -14,7 +9,7 @@ pub struct AppInfo{
     categories: String, 
     application_type: AppType,
     exec: String,
-    global: String,
+    pub global: String,
     icon: String
 }
 
@@ -49,24 +44,17 @@ impl AppType{
 
 impl AppInfo{
     
+
     ///create a new Object of AppInfo
     pub fn new(name: String, exec: String, categories: String, application_type: AppType, icon: String, global: String) -> AppInfo{
         return AppInfo{name: name.clone(), categories: categories.clone(), application_type: application_type.clone(), exec: exec.clone(), global: global.clone(), icon: icon.clone() };
     }
     
     ///Writes the given AppInfo to a actual file
-    pub fn write_info_to_file(_info: AppInfo){
-
-        //figure out in wich folder we want to create the file
-        let file_path: &str;
-        if _info.global == "global" {
-            file_path = GLOBAL_PATH;
-        }else {
-            file_path = LOCAL_PATH;
-        }
+    pub fn write_info_to_file(_info: AppInfo, path: String){
 
         //Create the file and write all Informations we have to it.
-        let mut file = File::create(file_path.to_string() + &"/".to_string() + &_info.name.clone() + ".desktop").unwrap();
+        let mut file = File::create(path + &"/".to_string() + &_info.name.clone() + ".desktop").unwrap();
 
         writeln!(file, "{}", "[Desktop Entry]").unwrap();
         writeln!(file, "{}", "Version=1.0").unwrap();

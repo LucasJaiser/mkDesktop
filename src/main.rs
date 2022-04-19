@@ -1,14 +1,18 @@
+
 use std::io::stdin;
 use std::path::Path;
 
 use clap::Parser;
+use serde::{Deserialize, Serialize};
 
 use crate::info::AppInfo;
 use crate::info::AppType;
 
 mod info;
 
-
+//Paths for where the actuall .desktop files will go
+static GLOBAL_PATH: &str = "/usr/share/applications";
+static LOCAL_PATH: &str = "~/.local/share/applications";
 
 #[derive(Parser)]
 #[clap(author="Lucas Jaiser", version="1.0", about, long_about = "A CLI tool to create .desktop files with ease")]
@@ -43,23 +47,43 @@ struct Cli {
     guided: bool,
 }
 
+#[derive(Default, Debug, Serialize, Deserialize)]
+struct Config{
+    global_path: String,
+    local_path: String,
+}
 
 fn main() {
     let cli = Cli::parse();
+    let cfg: Config = confy::load("mkDesktop").unwrap();
+    let info: AppInfo;
+    let path: String;
+    
 
     if cli.guided {
         println!("---------------Guided Mode----------------");
         //Start guided Input mode, this is where the information to the .Desktop file is gathered.
-        let info: AppInfo = guided_input();
-
-        //takes the struct and writes it to the actual file in the correct Location based on input 
-        AppInfo::write_info_to_file(info)
+        info = guided_input();
+    }else{
+        info = AppInfo::new(cli.name, cli.exec, cli.categories, cli.app_type, cli.icon, cli.global);
     }
    
-
-    let info: AppInfo = AppInfo::new(cli.name, cli.exec, cli.categories, cli.app_type, cli.icon, cli.global);
+    if info.global.eq("global") {
+        if cfg.global_path != "" {
+            path = cfg.global_path;
+        }else{
+            path = GLOBAL_PATH.to_string(); 
+        }
+    }else{
+        if cfg.local_path != "" {
+            path = cfg.local_path;
+        }else{
+            path = LOCAL_PATH.to_string();
+        }
+    }
     
-    AppInfo::write_info_to_file(info);
+    //takes the struct and writes it to the actual file in the correct Location based on input 
+    AppInfo::write_info_to_file(info, path);
 
 }
 
