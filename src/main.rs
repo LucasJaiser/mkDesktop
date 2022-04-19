@@ -29,33 +29,34 @@ fn guided_input() -> AppInfo{
     stdin().read_line(&mut name).unwrap();
     name = name.trim_end().to_string();
 
-    //Check for valid input
-    while application_type != "Application" || application_type != "Link" || application_type != "Directory" {
+    //Check for valid input, if input is invalid ask again instead of quiting.
+    while application_type.ne("Link") && application_type.ne("Application") && application_type.ne("Directory") {
         println!("What type of programm is it? (Application, Link, Directory)");
+        application_type = "".to_string();
         stdin().read_line(&mut application_type).unwrap();
         application_type = application_type.trim_end().to_string();
     }
-
 
     println!("Wich Categorie does it belong to? (Possible values are: AudioVideo, Audio, Video, Development, Education, Game, Graphics, Network, Office, Settings, System, Utility)");
     stdin().read_line(&mut categories).unwrap();
     categories = categories.trim_end().to_string();
 
-    //Check for valid input
-    while Path::new(&exec.clone()).exists() && exec == "" {
+    //Check for valid input, if input is invalid ask again instead of quiting.
+    while !Path::new(&exec.clone()).exists() && exec == "" {
         println!("What should be executed?");
         stdin().read_line(&mut exec).unwrap();
         exec = exec.trim_end().to_string();
     }
 
-    //check for valid input
-    while global != "global" || global != "local" {
+    //Check for valid input, if input is invalid ask again instead of quiting.
+    while global.ne("global") && global.ne("local") {
         println!("Do you want to install it globally or only for your current user? (valid input: global, local)");
         stdin().read_line(&mut global).unwrap();
         global = global.trim_end().to_string();
     }
     
-    while icon != "" && icon != "invalid"{
+    //Check for valid input, if input is invalid ask again instead of quiting.
+    while icon.eq("") || icon.eq("invalid") {
         println!("Which Icon should be used?");
         stdin().read_line(&mut icon).unwrap();
         icon = icon.trim_end().to_string();
