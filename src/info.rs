@@ -32,8 +32,8 @@ impl AppType{
     }
     
     ///Converts a String to a AppType enum
-    pub fn convert_app_type(app_type: &str) -> Result<AppType, String>{
-        match app_type{
+    pub fn convert_app_type(app_type: &String) -> Result<AppType, String>{
+        match app_type.as_str(){
             "Application" => { return Ok(AppType::Application) },
             "Link" => { return Ok(AppType::Link) },
             "Directory" => { return Ok(AppType::Directory) },
@@ -75,6 +75,19 @@ impl AppInfo{
             return icon_path.canonicalize().unwrap().to_str().unwrap().to_string();
         }
 
+    }
+
+    pub fn print_template(){
+        //Create the file and write all Informations we have to it.
+        let mut file = File::create("template.desktop").unwrap();
+
+        writeln!(file, "{}", "[Desktop Entry]").unwrap();
+        writeln!(file, "{}", "Version=1.0").unwrap();
+        writeln!(file, "Name={}", "").unwrap();
+        writeln!(file, "Exec={}", "").unwrap();
+        writeln!(file, "Categories={}", "").unwrap();
+        writeln!(file, "Type={}", "").unwrap();
+        writeln!(file, "Icon={}", "").unwrap();
     }
 }
 

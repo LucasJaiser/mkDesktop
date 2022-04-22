@@ -19,11 +19,11 @@ static LOCAL_PATH: &str = "~/.local/share/applications";
 struct Cli {
     /// Name of the File you want to create
     #[clap(short, long)]
-    name: String,
+    name: Option<String>,
 
     ///Application Type (possible values: Application, Link, Directory)
-    #[clap(short, long, parse(try_from_str=AppType::convert_app_type))]
-    app_type: AppType,
+    #[clap(short, long)]
+    app_type: Option<String>,
 
     ///Categories wich describes your Application, you can find possible Categories here: https://specifications.freedesktop.org/menu-spec/menu-spec-1.0.html#category-registry
     #[clap(short, long, default_value_t = String::from(""))]
@@ -31,11 +31,11 @@ struct Cli {
 
     ///The binary or .sh etc. which should be executed
     #[clap(short, long)]
-    exec: String,
+    exec: Option<String>,
     
     ///The Icon wich will be displayed with this Application
     #[clap(short, long)]
-    icon: String,
+    icon: Option<String>,
     
     ///Should mkDesktop install the in global Directory or in the Local only for the current user
     #[clap(short, long, default_value_t = String::from("global"))]
@@ -45,6 +45,10 @@ struct Cli {
     ///Good for beginners 
     #[clap(short = 'G', long)]
     guided: bool,
+
+    ///Only Print out a template of the .desktop file. 
+    #[clap(short, long)]
+    template: bool,
 }
 
 #[derive(Default, Debug, Serialize, Deserialize)]
@@ -59,13 +63,17 @@ fn main() {
     let info: AppInfo;
     let path: String;
     
-
+    if cli.template {
+        AppInfo::print_template();
+        return;
+    }
+    
     if cli.guided {
         println!("---------------Guided Mode----------------");
         //Start guided Input mode, this is where the information to the .Desktop file is gathered.
         info = guided_input();
     }else{
-        info = AppInfo::new(cli.name, cli.exec, cli.categories, cli.app_type, cli.icon, cli.global);
+        info = AppInfo::new(cli.name.unwrap(), cli.exec.unwrap(), cli.categories, AppType::convert_app_type(&cli.app_type.unwrap()).unwrap(), cli.icon.unwrap(), cli.global);
     }
    
     if info.global.eq("global") {
