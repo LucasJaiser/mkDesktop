@@ -105,9 +105,9 @@ mod test{
 
     #[test]
     fn test_app_type_convert_to_enum(){
-        assert_eq!(AppType::convert_app_type("Application").unwrap(), AppType::Application);
-        assert_eq!(AppType::convert_app_type("Link").unwrap(), AppType::Link);
-        assert_eq!(AppType::convert_app_type("Directory").unwrap(), AppType::Directory);
+        assert_eq!(AppType::convert_app_type(&String::from("Application")).unwrap(), AppType::Application);
+        assert_eq!(AppType::convert_app_type(&String::from("Link")).unwrap(), AppType::Link);
+        assert_eq!(AppType::convert_app_type(&String::from("Directory")).unwrap(), AppType::Directory);
     }
 
     #[test]
