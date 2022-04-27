@@ -1,6 +1,7 @@
 
 use std::io::stdin;
 use std::path::Path;
+use std::env;
 
 use clap::Parser;
 use serde::{Deserialize, Serialize};
@@ -9,6 +10,7 @@ use crate::info::AppInfo;
 use crate::info::AppType;
 
 mod info;
+mod detector;
 
 //Paths for where the actuall .desktop files will go
 static GLOBAL_PATH: &str = "/usr/share/applications";
@@ -49,6 +51,12 @@ struct Cli {
     ///Only Print out a template of the .desktop file. 
     #[clap(short, long)]
     template: bool,
+
+    ///Auto detect informations 
+    ///Only the following field can be detected: name (folder name), exec (file rights), icon (filename), global is predefined to "global", app-type is predefined to "Application"
+    #[clap(short = 'A', long)]
+    auto_detect: bool,
+
 }
 
 #[derive(Default, Debug, Serialize, Deserialize)]
@@ -56,24 +64,34 @@ struct Config{
     global_path: String,
     local_path: String,
 }
-
+  
 fn main() {
     let cli = Cli::parse();
     let cfg: Config = confy::load("mkDesktop").unwrap();
     let info: AppInfo;
     let path: String;
-    
+
     if cli.template {
         AppInfo::print_template();
         return;
     }
     
-    if cli.guided {
-        println!("---------------Guided Mode----------------");
-        //Start guided Input mode, this is where the information to the .Desktop file is gathered.
-        info = guided_input();
+    if cli.auto_detect {
+        
+        let info_return = detector::detect(env::current_dir().unwrap());
+        match info_return {
+            Ok(info_return) => {info = info_return },
+            Err(..) => {return;},
+        }
+
     }else{
-        info = AppInfo::new(cli.name.unwrap(), cli.exec.unwrap(), cli.categories, AppType::convert_app_type(&cli.app_type.unwrap()).unwrap(), cli.icon.unwrap(), cli.global);
+        if cli.guided {
+            println!("---------------Guided Mode----------------");
+            //Start guided Input mode, this is where the information to the .Desktop file is gathered.
+            info = guided_input();
+        }else{
+            info = AppInfo::new(cli.name. unwrap(), cli.exec.unwrap(), cli.categories, AppType::convert_app_type(&cli.app_type.unwrap()).unwrap(), cli.icon.unwrap(), cli.global);
+        }
     }
    
     if info.global.eq("global") {
@@ -92,8 +110,11 @@ fn main() {
     
     //takes the struct and writes it to the actual file in the correct Location based on input 
     AppInfo::write_info_to_file(info, path);
+    
 
 }
+
+
 
 ///This function gathers information to the .Desktop file in a Guided form. 
 ///it leads you through all field you will need in the file to be valid. 
