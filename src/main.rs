@@ -6,11 +6,14 @@ use std::env;
 use clap::Parser;
 use serde::{Deserialize, Serialize};
 
+use crate::converter::convert_categories_number;
+use crate::converter::convert_type_number;
 use crate::info::AppInfo;
 use crate::info::AppType;
 
 mod info;
 mod detector;
+mod converter;
 
 //Paths for where the actuall .desktop files will go
 static GLOBAL_PATH: &str = "/usr/share/applications";
@@ -114,8 +117,6 @@ fn main() {
 
 }
 
-
-
 ///This function gathers information to the .Desktop file in a Guided form. 
 ///it leads you through all field you will need in the file to be valid. 
 ///Technically you only need Type, Name and Exec. But the rest is mostly Best Practice. 
@@ -134,15 +135,16 @@ fn guided_input() -> AppInfo{
 
     //Check for valid input, if input is invalid ask again instead of quiting.
     while application_type.ne("Link") && application_type.ne("Application") && application_type.ne("Directory") {
-        println!("What type of programm is it? (Application, Link, Directory)");
+        println!("What type of programm is it? (1 = Application, 2 = Link, 3 = Directory)");
         application_type = "".to_string();
         stdin().read_line(&mut application_type).unwrap();
-        application_type = application_type.trim_end().to_string();
+        application_type = convert_type_number(application_type.trim_end()).unwrap().to_string();
+        
     }
 
-    println!("Wich Categorie does it belong to? (Possible values are: AudioVideo, Audio, Video, Development, Education, Game, Graphics, Network, Office, Settings, System, Utility)");
+    println!("Wich Categorie does it belong to? (Possible values are: 1 = AudioVideo, 2 = Audio, 3 = Video, 4 = Development, 5 = Education, 6 = Game, 7 = Graphics, 8 = Network, 9 = Office, 10 = Settings, 11 = System, 12 = Utility)");
     stdin().read_line(&mut categories).unwrap();
-    categories = categories.trim_end().to_string();
+    categories = convert_categories_number(categories.trim_end()).unwrap().to_string();
 
     //Check for valid input, if input is invalid ask again instead of quiting.
     while !Path::new(&exec.clone()).exists() && exec == "" {

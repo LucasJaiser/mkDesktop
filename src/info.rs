@@ -16,7 +16,7 @@ pub struct AppInfo{
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Debug)]
 pub enum AppType{
     Application,
-    Link,
+    Link, 
     Directory
 }
 
@@ -95,6 +95,8 @@ impl AppInfo{
 mod test{
     use crate::AppType; 
     use crate::AppInfo;
+    use crate::converter::convert_categories_number;
+    use crate::converter::convert_type_number;
 
     #[test]
     fn test_app_type_to_string(){
@@ -119,6 +121,32 @@ mod test{
         assert_eq!(AppType::Application, info.application_type);
         assert_eq!(String::from("icon"), info.icon);
         assert_eq!(String::from("global"), info.global);
+    }
+
+    #[test]
+    fn test_convert_number_type() {
+        assert_eq!(String::from("Application"), convert_type_number("1").unwrap());
+        assert_eq!(String::from("Link"), convert_type_number("2").unwrap());
+        assert_eq!(String::from("Directory"), convert_type_number("3").unwrap());
+        assert_eq!(String::from("TestTest"), convert_type_number("TestTest").unwrap());
+
+    }
+
+    #[test]
+    fn test_convert_number_categorie() {
+        assert_eq!(String::from("AudioVideo"), convert_categories_number("1").unwrap());
+        assert_eq!(String::from("Audio"), convert_categories_number("2").unwrap());
+        assert_eq!(String::from("Video"), convert_categories_number("3").unwrap());
+        assert_eq!(String::from("Development"), convert_categories_number("4").unwrap());
+        assert_eq!(String::from("Education"), convert_categories_number("5").unwrap());
+        assert_eq!(String::from("Game"), convert_categories_number("6").unwrap());
+        assert_eq!(String::from("Graphics"), convert_categories_number("7").unwrap());
+        assert_eq!(String::from("Network"), convert_categories_number("8").unwrap());
+        assert_eq!(String::from("Office"), convert_categories_number("9").unwrap());
+        assert_eq!(String::from("Settings"), convert_categories_number("10").unwrap());
+        assert_eq!(String::from("System"), convert_categories_number("11").unwrap());
+        assert_eq!(String::from("Utility"), convert_categories_number("12").unwrap());
+        assert_eq!(String::from("TestTest"), convert_categories_number("TestTest").unwrap());
     }
 }
 
