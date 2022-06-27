@@ -73,12 +73,12 @@ fn main() {
     let cfg: Config = confy::load("mkDesktop").unwrap();
     let info: AppInfo;
     let path: String;
-
+     
     if cli.template {
         AppInfo::print_template();
         return;
     }
-    
+        
     if cli.auto_detect {
         
         let info_return = detector::detect(env::current_dir().unwrap());
@@ -113,7 +113,7 @@ fn main() {
     
     //takes the struct and writes it to the actual file in the correct Location based on input 
     AppInfo::write_info_to_file(info, path);
-    
+     
 
 }
 
