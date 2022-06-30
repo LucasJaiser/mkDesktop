@@ -11,6 +11,11 @@ You can give the application the needed information through a guided mode or thr
 
 ### Guided mode
 Guided mode means you only can provide information to Application after it asks you for it. After running the application you will get asked some questions about the Application the .desktop file is for. This includes the name, Application type, which Categorie it falls under or which icon it should use to display in the menus. 
+You can find more information about valid Types and Categories here: 
+
+[Types](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s06.html)
+
+[Categories](https://specifications.freedesktop.org/menu-spec/menu-spec-1.0.html#category-registry)
 
 ### Auto Detection
 A third method of creating a .desktop file with this application is to use the --auto-detect flag. For this you have to be in the folder which includes the target application since the current folder you are in will be used to detect the name of the application. mkDesktop can only detect name and executable. For the other option it useses predefined values.  
@@ -18,11 +23,6 @@ A third method of creating a .desktop file with this application is to use the -
 ### Templates
 If you only want to have a template of a .desktop file you can use the --template flag. It outputs a .desktop file with no values in the current directory.  
 
-You can find more information about valid Types and Categories here: 
-
-[Types](https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s06.html)
-
-[Categories](https://specifications.freedesktop.org/menu-spec/menu-spec-1.0.html#category-registry)
 
 ### CLI usage (mk_desktop --help)
 
