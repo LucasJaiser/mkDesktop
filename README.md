@@ -1,6 +1,6 @@
 [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](https://github.com/clap-rs/clap/blob/v3.1.9/LICENSE-MIT)
 [![Rust](https://github.com/LucasJaiser/mkDesktop/actions/workflows/rust.yml/badge.svg)](https://github.com/LucasJaiser/mkDesktop/actions/workflows/rust.yml)
-
+[![creates.io](https://img.shields.io/badge/crates.io-1.0.0-orange)](https://crates.io/crates/mk_desktop)
 
 # mkDesktop
 
