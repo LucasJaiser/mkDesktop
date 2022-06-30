@@ -4,10 +4,19 @@
 
 # mkDesktop
 
-mkDesktop is a CLI Application written is Rust which turns your input into a .desktop file. After you install a application from github or compile the code yourself, you often find the application not showing in your application finder of your Desktop Environment. For that you need a .desktop file in a specific location. To help you creating one this application comes in handy. It putts you through a guided Experience of making such a file. You dont have to have knoledge of where this file goes, what is the syntax of the file or what are valid values. The Application putts you all through this.  
+mkDesktop is a CLI Application written in Rust which turns your input into a .desktop file. After you install a application from github or compile the code yourself, you often find the application not showing in your application finder of your Desktop Environment. For that you need a .desktop file in a specific location. To help you creating one this application comes in handy. It putts you through a guided Experience of making such a file. You dont have to have knowledge of where this file goes, what is the syntax of the file or what are valid values. The Application putts you all through this.  
 
 ## Usage
-You can give the application the needed information through a guided mode or through CLI parameters. Guided mode means you only can provide information to Application after it asks you for it. After running the application you will get asked some questions about the Application the .desktop file is for. This includes the name, Application type, which Categorie it falls under or which icon it should use to display in the menus. 
+You can give the application the needed information through a guided mode or through CLI parameters. 
+
+### Guided mode
+Guided mode means you only can provide information to Application after it asks you for it. After running the application you will get asked some questions about the Application the .desktop file is for. This includes the name, Application type, which Categorie it falls under or which icon it should use to display in the menus. 
+
+### Auto Detection
+A third method of creating a .desktop file with this application is to use the --auto-detect flag. For this you have to be in the folder which includes the target application since the current folder you are in will be used to detect the name of the application. mkDesktop can only detect name and executable. For the other option it useses predefined values.  
+
+### Templates
+If you only want to have a template of a .desktop file you can use the --template flag. It outputs a .desktop file with no values in the current directory.  
 
 You can find more information about valid Types and Categories here: 
 
