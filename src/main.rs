@@ -88,12 +88,13 @@ fn main() {
         }
 
     }else{
-        if cli.guided {
+        let name = cli.name.unwrap_or("##NONE##".to_string());
+        if cli.guided ||name == "##NONE##".to_string() {
             println!("---------------Guided Mode----------------");
             //Start guided Input mode, this is where the information to the .Desktop file is gathered.
             info = guided_input();
         }else{
-            info = AppInfo::new(cli.name. unwrap(), cli.exec.unwrap(), cli.categories, AppType::convert_app_type(&cli.app_type.unwrap()).unwrap(), cli.icon.unwrap(), cli.global);
+            info = AppInfo::new(name, cli.exec.unwrap(), cli.categories, AppType::convert_app_type(&cli.app_type.unwrap()).unwrap(), cli.icon.unwrap(), cli.global);
         }
     }
    
