@@ -20,7 +20,7 @@ You can find more information about valid Types and Categories here:
 ### Auto Detection
 A third method of creating a .desktop file with this application is to use the --auto-detect flag. For this you have to be in the folder which includes the target application since the current folder you are in will be used to detect the name of the application. mkDesktop can only detect name and executable. For the other option it useses predefined values. 
 Default values for Categorie is "Utility" and for AppType it is "Application".
-You can change the default value by editing the [config file](#Configuration).
+You can change the default value by editing the config file.
 
 ### Templates
 If you only want to have a template of a .desktop file you can use the --template flag. It outputs a .desktop file with no values in the current directory.  
