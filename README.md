@@ -1,6 +1,6 @@
 [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](https://github.com/clap-rs/clap/blob/v3.1.9/LICENSE-MIT)
 [![Rust](https://github.com/LucasJaiser/mkDesktop/actions/workflows/rust.yml/badge.svg)](https://github.com/LucasJaiser/mkDesktop/actions/workflows/rust.yml)
-[![creates.io](https://img.shields.io/badge/crates.io-1.0.0-orange)](https://crates.io/crates/mk_desktop)
+[![creates.io](https://img.shields.io/badge/crates.io-1.1.0-orange)](https://crates.io/crates/mk_desktop)
 
 # mkDesktop
 
@@ -18,7 +18,9 @@ You can find more information about valid Types and Categories here:
 [Categories](https://specifications.freedesktop.org/menu-spec/menu-spec-1.0.html#category-registry)
 
 ### Auto Detection
-A third method of creating a .desktop file with this application is to use the --auto-detect flag. For this you have to be in the folder which includes the target application since the current folder you are in will be used to detect the name of the application. mkDesktop can only detect name and executable. For the other option it useses predefined values.  
+A third method of creating a .desktop file with this application is to use the --auto-detect flag. For this you have to be in the folder which includes the target application since the current folder you are in will be used to detect the name of the application. mkDesktop can only detect name and executable. For the other option it useses predefined values. 
+Default values for Categorie is "Utility" and for AppType it is "Application".
+You can change the default value by editing the [config file](#Configuration).
 
 ### Templates
 If you only want to have a template of a .desktop file you can use the --template flag. It outputs a .desktop file with no values in the current directory.  
@@ -63,13 +65,36 @@ OPTIONS:
     
     -V, --version                    Print version information
 
+##Configuration
+The Config file defines some default Values which the app will use if you dont specify them.
+Valid config are: 
+
+
+global_path -> defines the path which will be used to globally install the .desktop file.
+
+local_path -> defines the path which will be used to locally install the .desktop file.
+
+categorie_default -> defines the default Categorie if not specied otherwise.
+
+app_type_default -> defines the default AppType if not specified otherwise.
+
 
 ## Installation
 ### Requirements 
 - cargo 
 - rust 
 
-For now you have to compile the application your self. This can be done through `cargo install --path .`.
+
+For now you have to compile the application your self. This can be done through 
+
+    git clone https://github.com/LucasJaiser/mkDesktop.git
+    cd mkDekstop
+    cargo install --path .
+
+or you can use crates.io: 
+
+    cargo install mk_desktop
+
 
 ## Contribution
 You can find more information about how to Contribute on this file.

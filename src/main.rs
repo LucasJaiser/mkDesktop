@@ -18,6 +18,9 @@ mod converter;
 //Paths for where the actuall .desktop files will go
 static GLOBAL_PATH: &str = "/usr/share/applications";
 static LOCAL_PATH: &str = "~/.local/share/applications";
+static CATEGORIE_DEFAULT: &str = "Utility";
+static APP_TYPE_DEFAULT: &str = "Application";
+
 
 #[derive(Parser)]
 #[clap(author="Lucas Jaiser", version="1.0", about, long_about = "A CLI tool to create .desktop files with ease")]
@@ -66,27 +69,51 @@ struct Cli {
 struct Config{
     global_path: String,
     local_path: String,
+    default_categorie: String,
+    default_app_type: String,
 }
   
 fn main() {
     let cli = Cli::parse();
     let cfg: Config = confy::load("mkDesktop").unwrap();
-    let info: AppInfo;
+    let mut info: AppInfo;
     let path: String;
-     
+    let mut categorie: String;
+    let mut app_type: String;
+    
+    //Template Mode
     if cli.template {
         AppInfo::print_template();
         return;
     }
-        
+    
+    //Set default value for categories
+    if cfg.default_categorie != "" {
+        categorie = cfg.default_categorie;
+    }else{
+        categorie = CATEGORIE_DEFAULT.to_string();
+    }
+
+    //Set dault value for app_type
+    if cfg.default_app_type != "" {
+        app_type = cfg.default_app_type;
+    }else{
+        app_type = APP_TYPE_DEFAULT.to_string();
+    }
+
+    //Auto Detection Mode
     if cli.auto_detect {
         
         let info_return = detector::detect(env::current_dir().unwrap());
         match info_return {
-            Ok(info_return) => {info = info_return },
+            Ok(info_return) => {    
+                info = info_return;
+                info.categories = categorie;
+                info.application_type = AppType::convert_app_type(&app_type).unwrap();
+            },
             Err(..) => {return;},
         }
-
+    //cli Mode
     }else{
 
         if cli.guided ||cli.name.is_none() {
@@ -94,24 +121,28 @@ fn main() {
             //Start guided Input mode, this is where the information to the .Desktop file is gathered.
             info = guided_input();
         }else{
+
+            //Check for missing information
             if cli.exec.is_none() {
                 println!("Information to create the file not Provided: exec. Add --exec 'executable' to the command to fix.");
                 return;
             }
             
-            if cli.app_type.is_none() {
-                println!("Information to create the file not Provided: app_type. Add --app_type 'Type' to the command to fix.");
-                return;
+            //Overwrite default value if user wished a different value
+            if cli.app_type.is_some() {    
+                app_type = cli.app_type.unwrap();
             }
 
-            if cli.categories == "" {
-                println!("Information to create the file not Provided: categories. Add --categories 'Categorie' to the command to fix.");
-                return;
+            //Overwrite default value if user wished a different value
+            if cli.categories != "" {
+                categorie = cli.categories;
             }
-            info = AppInfo::new(cli.name.unwrap(), cli.exec.unwrap(), cli.categories, AppType::convert_app_type(&cli.app_type.unwrap()).unwrap(), cli.icon.unwrap(), cli.global);
+
+            info = AppInfo::new(cli.name.unwrap(), cli.exec.unwrap(), categorie, AppType::convert_app_type(&app_type).unwrap(), cli.icon.unwrap(), cli.global);
         }
     }
-   
+  
+    //load path Variable from config or predefined Path, check if user wants a global or local isntallation
     if info.global.eq("global") {
         if cfg.global_path != "" {
             path = cfg.global_path;

@@ -6,8 +6,8 @@ use std::path::Path;
 #[derive(Clone)]
 pub struct AppInfo{
     name: String,
-    categories: String, 
-    application_type: AppType,
+    pub categories: String, 
+    pub application_type: AppType,
     exec: String,
     pub global: String,
     icon: String
@@ -89,6 +89,7 @@ impl AppInfo{
         writeln!(file, "Type={}", "").unwrap();
         writeln!(file, "Icon={}", "").unwrap();
     }
+
 }
 
 #[cfg(test)]
