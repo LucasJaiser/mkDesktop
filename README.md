@@ -84,7 +84,9 @@ OPTIONS:
     -V, --version
             Print version information
 
-##Configuration
+
+## Configuration
+
 The Config file defines some default Values which the app will use if you dont specify them.
 Valid config are: 
 
