@@ -18,9 +18,6 @@ mod converter;
 //Paths for where the actuall .desktop files will go
 static GLOBAL_PATH: &str = "/usr/share/applications";
 static LOCAL_PATH: &str = "~/.local/share/applications";
-static CATEGORIE_DEFAULT: &str = "Utility";
-static APP_TYPE_DEFAULT: &str = "Application";
-
 
 #[derive(Parser)]
 #[clap(author="Lucas Jaiser", version="1.1", about, long_about = "A CLI tool to create .desktop files with ease")]
@@ -29,12 +26,12 @@ struct Cli {
     #[clap(short, long)]
     name: Option<String>,
 
-    ///Application Type (possible values: Application, Link, Directory)
-    #[clap(short, long)]
-    app_type: Option<String>,
+    ///Application Type (possible values: Application, Link, Directory). 
+    #[clap(short, long, default_value_t = String::from("Application") )]
+    app_type: String,
 
     ///Categories wich describes your Application, you can find possible Categories here: https://specifications.freedesktop.org/menu-spec/menu-spec-1.0.html#category-registry
-    #[clap(short, long, default_value_t = String::from(""))]
+    #[clap(short, long, default_value_t = String::from("Utility"))]
     categories: String,
 
     ///The binary or .sh etc. which should be executed
@@ -62,6 +59,11 @@ struct Cli {
     ///Only the following field can be detected: name (folder name), exec (file rights), icon (filename), global is predefined to "global", app-type is predefined to "Application"
     #[clap(short = 'A', long)]
     auto_detect: bool,
+    
+    ///Path in which the file will be written. Warning: Overwrites the global and local Path(if the
+    ///global parameter is set it will be no longer active. The app will use this Path). 
+    #[clap(short = 'p', long)]
+    path: Option<String>,
 
 }
 
@@ -78,9 +80,9 @@ fn main() {
     let cli = Cli::parse();
     let cfg: Config = confy::load("mkDesktop").unwrap();
     let mut info: AppInfo;
-    let path: String;
-    let mut categorie: String;
-    let mut app_type: String;
+    let mut output_path: String;
+    let categorie: String;
+    let app_type: String;
     
     //Template Mode
     if cli.template {
@@ -92,14 +94,14 @@ fn main() {
     if cfg.default_categorie != "" {
         categorie = cfg.default_categorie.clone();
     }else{
-        categorie = CATEGORIE_DEFAULT.to_string();
+        categorie = cli.categories.clone();
     }
 
     //Set dault value for app_type
     if cfg.default_app_type != "" {
         app_type = cfg.default_app_type.clone();
     }else{
-        app_type = APP_TYPE_DEFAULT.to_string();
+        app_type = cli.app_type.clone();
     }
 
     //Auto Detection Mode
@@ -129,16 +131,6 @@ fn main() {
                 return;
             }
             
-            //Overwrite default value if user wished a different value
-            if cli.app_type.is_some() {    
-                app_type = cli.app_type.unwrap();
-            }
-
-            //Overwrite default value if user wished a different value
-            if cli.categories != "" {
-                categorie = cli.categories;
-            }
-
             info = AppInfo::new(cli.name.unwrap(), cli.exec.unwrap(), categorie, AppType::convert_app_type(&app_type).unwrap(), cli.icon.unwrap(), cli.global);
         }
     }
@@ -146,20 +138,24 @@ fn main() {
     //load path Variable from config or predefined Path, check if user wants a global or local isntallation
     if info.global.eq("global") {
         if cfg.global_path != "" {
-            path = cfg.global_path.clone();
+            output_path = cfg.global_path.clone();
         }else{
-            path = GLOBAL_PATH.to_string(); 
+            output_path = GLOBAL_PATH.to_string(); 
         }
     }else{
         if cfg.local_path != "" {
-            path = cfg.local_path.clone();
+            output_path = cfg.local_path.clone();
         }else{
-            path = LOCAL_PATH.to_string();
+            output_path = LOCAL_PATH.to_string();
         }
+    }
+
+    if cli.path.is_some() {
+        output_path = cli.path.unwrap();
     }
     
     //takes the struct and writes it to the actual file in the correct Location based on input 
-    AppInfo::write_info_to_file(info, path);
+    AppInfo::write_info_to_file(info, output_path);
     
     confy::store("mkDesktop", cfg).unwrap();
 
