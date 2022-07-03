@@ -1,6 +1,8 @@
 use std::fs::File;
 use std::io::prelude::*;
 use std::path::Path;
+use std::fs::OpenOptions;
+use std::process::Command;
 
 ///Struct wich holds all User input information
 #[derive(Clone)]
@@ -50,19 +52,43 @@ impl AppInfo{
         return AppInfo{name: name.clone(), categories: categories.clone(), application_type: application_type.clone(), exec: exec.clone(), global: global.clone(), icon: icon.clone() };
     }
     
+    pub fn convert_to_string(info: AppInfo) -> String{
+        let mut result: String = "".to_string();
+        result.push_str("echo \"[Desktop Entry]\n");
+        result.push_str("Version=1.0");
+        result.push_str("\n");
+        result.push_str("Name=");
+        result = result + &info.name.clone();
+        result.push_str("\n");
+        result.push_str("Exec=");
+        result = result + &info.exec.clone();
+        result.push_str("\n");
+        result.push_str("Categories=");
+        result = result + &info.categories.clone();
+        result.push_str("\n");
+        result.push_str("Type=");
+        result = result + &info.application_type.to_string().clone();
+        result.push_str("\n");
+        result.push_str("Icon=");
+        result = result + &info.icon.clone();
+        result.push_str("\"");
+        return result;
+    }
+    
     ///Writes the given AppInfo to a actual file
     pub fn write_info_to_file(_info: AppInfo, path: String){
+       
+        let info_string = AppInfo::convert_to_string(_info.clone()); 
+        //Create the file and write all Informations we have to it
+        if _info.global == "global" {
+            //We are writing to /usr/share so we need sudo rights to create and write to a file 
+            Command::new("sudo").args(["touch", (path.clone() + "/" + &_info.name.clone() + ".desktop").as_str()]).output().unwrap();
+            Command::new("sh").args(["-c", (info_string.clone() + " | sudo tee " + &path.clone() + "/" + &_info.name.clone() + ".desktop").as_str()]).output().unwrap();
+        }else{
+            let mut file = OpenOptions::new().write(true).create(true).open(path + "/" + &_info.name.clone() + ".desktop").unwrap();
 
-        //Create the file and write all Informations we have to it.
-        let mut file = File::create(path + &"/".to_string() + &_info.name.clone() + ".desktop").unwrap();
-
-        writeln!(file, "{}", "[Desktop Entry]").unwrap();
-        writeln!(file, "{}", "Version=1.0").unwrap();
-        writeln!(file, "Name={}", _info.name.clone()).unwrap();
-        writeln!(file, "Exec={}", _info.exec.clone()).unwrap();
-        writeln!(file, "Categories={}", _info.categories.clone()).unwrap();
-        writeln!(file, "Type={}", _info.application_type.to_string().clone()).unwrap();
-        writeln!(file, "Icon={}", _info.icon.clone()).unwrap();
+            writeln!(file, "{}", info_string).unwrap();
+        }
     }
 
     ///Helper function for getting a Absolute path from a Relativ Path
@@ -78,6 +104,7 @@ impl AppInfo{
     }
 
     pub fn print_template(){
+        
         //Create the file and write all Informations we have to it.
         let mut file = File::create("template.desktop").unwrap();
 
