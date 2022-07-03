@@ -28,6 +28,8 @@ If you only want to have a template of a .desktop file you can use the --templat
 
 ### CLI usage (mk_desktop --help)
 
+example: 'mk_desktop --name example --global global --icon example/resource/example.png -c Utility -a Application --exec chromium'
+
 USAGE:
 
     mk_desktop [OPTIONS]
