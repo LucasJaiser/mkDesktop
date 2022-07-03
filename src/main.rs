@@ -20,18 +20,18 @@ static GLOBAL_PATH: &str = "/usr/share/applications";
 static LOCAL_PATH: &str = "~/.local/share/applications";
 
 #[derive(Parser)]
-#[clap(author="Lucas Jaiser", version="1.0", about, long_about = "A CLI tool to create .desktop files with ease")]
+#[clap(author="Lucas Jaiser", version="1.1", about, long_about = "A CLI tool to create .desktop files with ease")]
 struct Cli {
     /// Name of the File you want to create
     #[clap(short, long)]
     name: Option<String>,
 
-    ///Application Type (possible values: Application, Link, Directory)
-    #[clap(short, long)]
-    app_type: Option<String>,
+    ///Application Type (possible values: Application, Link, Directory). 
+    #[clap(short, long, default_value_t = String::from("Application") )]
+    app_type: String,
 
     ///Categories wich describes your Application, you can find possible Categories here: https://specifications.freedesktop.org/menu-spec/menu-spec-1.0.html#category-registry
-    #[clap(short, long, default_value_t = String::from(""))]
+    #[clap(short, long, default_value_t = String::from("Utility"))]
     categories: String,
 
     ///The binary or .sh etc. which should be executed
@@ -59,34 +59,64 @@ struct Cli {
     ///Only the following field can be detected: name (folder name), exec (file rights), icon (filename), global is predefined to "global", app-type is predefined to "Application"
     #[clap(short = 'A', long)]
     auto_detect: bool,
+    
+    ///Path in which the file will be written. Warning: Overwrites the global and local Path(if the
+    ///global parameter is set it will be no longer active. The app will use this Path). 
+    #[clap(short = 'p', long)]
+    path: Option<String>,
 
 }
 
 #[derive(Default, Debug, Serialize, Deserialize)]
+#[serde(default)]
 struct Config{
     global_path: String,
     local_path: String,
+    default_categorie: String,
+    default_app_type: String,
 }
   
 fn main() {
     let cli = Cli::parse();
     let cfg: Config = confy::load("mkDesktop").unwrap();
-    let info: AppInfo;
-    let path: String;
-     
+    let mut info: AppInfo;
+    let mut output_path: String;
+    let categorie: String;
+    let app_type: String;
+    
+    //Template Mode
     if cli.template {
         AppInfo::print_template();
         return;
     }
-        
+    
+    //Set default value for categories
+    if cfg.default_categorie != "" {
+        categorie = cfg.default_categorie.clone();
+    }else{
+        categorie = cli.categories.clone();
+    }
+
+    //Set dault value for app_type
+    if cfg.default_app_type != "" {
+        app_type = cfg.default_app_type.clone();
+    }else{
+        app_type = cli.app_type.clone();
+    }
+
+    //Auto Detection Mode
     if cli.auto_detect {
         
         let info_return = detector::detect(env::current_dir().unwrap());
         match info_return {
-            Ok(info_return) => {info = info_return },
+            Ok(info_return) => {    
+                info = info_return;
+                info.categories = categorie;
+                info.application_type = AppType::convert_app_type(&app_type).unwrap();
+            },
             Err(..) => {return;},
         }
-
+    //cli Mode
     }else{
 
         if cli.guided ||cli.name.is_none() {
@@ -94,41 +124,40 @@ fn main() {
             //Start guided Input mode, this is where the information to the .Desktop file is gathered.
             info = guided_input();
         }else{
+
+            //Check for missing information
             if cli.exec.is_none() {
                 println!("Information to create the file not Provided: exec. Add --exec 'executable' to the command to fix.");
                 return;
             }
             
-            if cli.app_type.is_none() {
-                println!("Information to create the file not Provided: app_type. Add --app_type 'Type' to the command to fix.");
-                return;
-            }
-
-            if cli.categories == "" {
-                println!("Information to create the file not Provided: categories. Add --categories 'Categorie' to the command to fix.");
-                return;
-            }
-            info = AppInfo::new(cli.name.unwrap(), cli.exec.unwrap(), cli.categories, AppType::convert_app_type(&cli.app_type.unwrap()).unwrap(), cli.icon.unwrap(), cli.global);
+            info = AppInfo::new(cli.name.unwrap(), cli.exec.unwrap(), categorie, AppType::convert_app_type(&app_type).unwrap(), cli.icon.unwrap(), cli.global);
         }
     }
-   
+  
+    //load path Variable from config or predefined Path, check if user wants a global or local isntallation
     if info.global.eq("global") {
         if cfg.global_path != "" {
-            path = cfg.global_path;
+            output_path = cfg.global_path.clone();
         }else{
-            path = GLOBAL_PATH.to_string(); 
+            output_path = GLOBAL_PATH.to_string(); 
         }
     }else{
         if cfg.local_path != "" {
-            path = cfg.local_path;
+            output_path = cfg.local_path.clone();
         }else{
-            path = LOCAL_PATH.to_string();
+            output_path = LOCAL_PATH.to_string();
         }
+    }
+
+    if cli.path.is_some() {
+        output_path = cli.path.unwrap();
     }
     
     //takes the struct and writes it to the actual file in the correct Location based on input 
-    AppInfo::write_info_to_file(info, path);
-     
+    AppInfo::write_info_to_file(info, output_path);
+    
+    confy::store("mkDesktop", cfg).unwrap();
 
 }
 
