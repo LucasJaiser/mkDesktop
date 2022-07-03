@@ -36,36 +36,53 @@ USAGE:
 
 OPTIONS:
 
-    -a, --app-type <APP_TYPE>        Application Type (possible values: Application, Link,
-                                     Directory)
+    -a, --app-type <APP_TYPE>
+            Application Type (possible values: Application, Link, Directory)
+            
+            [default: Application]
 
-    -A, --auto-detect                Auto detect informations Only the following field can be
-                                     detected: name (folder name), exec (file rights), icon
-                                     (filename), global is predefined to "global", app-type is
-                                     predefined to "Application"
-    
-    -c, --categories <CATEGORIES>    Categories wich describes your Application, you can find
-                                     possible Categories here:
-                                     https://specifications.freedesktop.org/menu-spec/menu-spec-
-                                     1.0.html#category-registry [default: ]
-    
-    -e, --exec <EXEC>                The binary or .sh etc. which should be executed
-    
-    -g, --global <GLOBAL>            Should mkDesktop install the in global Directory or in the
-                                     Local only for the current user [default: global]
-    
-    -G, --guided                     Starts the guided mode of mkDesktop, you will get asked step by
-                                     step all needed Information. Good for beginners
-    
-    -h, --help                       Print help information
-    
-    -i, --icon <ICON>                The Icon wich will be displayed with this Application
-    
-    -n, --name <NAME>                Name of the File you want to create
-    
-    -t, --template                   Only Print out a template of the .desktop file
-    
-    -V, --version                    Print version information
+    -A, --auto-detect
+            Auto detect informations Only the following field can be detected: name (folder name),
+            exec (file rights), icon (filename), global is predefined to "global", app-type is
+            predefined to "Application"
+
+    -c, --categories <CATEGORIES>
+            Categories wich describes your Application, you can find possible Categories here:
+            https://specifications.freedesktop.org/menu-spec/menu-spec-1.0.html#category-registry
+            
+            [default: Utility]
+
+    -e, --exec <EXEC>
+            The binary or .sh etc. which should be executed
+
+    -g, --global <GLOBAL>
+            Should mkDesktop install the in global Directory or in the Local only for the current
+            user
+            
+            [default: global]
+
+    -G, --guided
+            Starts the guided mode of mkDesktop, you will get asked step by step all needed
+            Information. Good for beginners
+
+    -h, --help
+            Print help information
+
+    -i, --icon <ICON>
+            The Icon wich will be displayed with this Application
+
+    -n, --name <NAME>
+            Name of the File you want to create
+
+    -p, --path <PATH>
+            Path in which the file will be written. Warning: Overwrites the global and local Path(if
+            the global parameter is set it will be no longer active. The app will use this Path)
+
+    -t, --template
+            Only Print out a template of the .desktop file
+
+    -V, --version
+            Print version information
 
 ##Configuration
 The Config file defines some default Values which the app will use if you dont specify them.
