@@ -66,6 +66,7 @@ struct Cli {
 }
 
 #[derive(Default, Debug, Serialize, Deserialize)]
+#[serde(default)]
 struct Config{
     global_path: String,
     local_path: String,
@@ -89,14 +90,14 @@ fn main() {
     
     //Set default value for categories
     if cfg.default_categorie != "" {
-        categorie = cfg.default_categorie;
+        categorie = cfg.default_categorie.clone();
     }else{
         categorie = CATEGORIE_DEFAULT.to_string();
     }
 
     //Set dault value for app_type
     if cfg.default_app_type != "" {
-        app_type = cfg.default_app_type;
+        app_type = cfg.default_app_type.clone();
     }else{
         app_type = APP_TYPE_DEFAULT.to_string();
     }
@@ -145,13 +146,13 @@ fn main() {
     //load path Variable from config or predefined Path, check if user wants a global or local isntallation
     if info.global.eq("global") {
         if cfg.global_path != "" {
-            path = cfg.global_path;
+            path = cfg.global_path.clone();
         }else{
             path = GLOBAL_PATH.to_string(); 
         }
     }else{
         if cfg.local_path != "" {
-            path = cfg.local_path;
+            path = cfg.local_path.clone();
         }else{
             path = LOCAL_PATH.to_string();
         }
@@ -159,7 +160,8 @@ fn main() {
     
     //takes the struct and writes it to the actual file in the correct Location based on input 
     AppInfo::write_info_to_file(info, path);
-     
+    
+    confy::store("mkDesktop", cfg).unwrap();
 
 }
 
