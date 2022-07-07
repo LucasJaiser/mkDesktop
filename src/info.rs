@@ -4,6 +4,8 @@ use std::path::Path;
 use std::fs::OpenOptions;
 use std::process::Command;
 
+use spinach::Spinach;
+
 ///Struct wich holds all User input information
 #[derive(Clone)]
 pub struct AppInfo{
@@ -83,18 +85,26 @@ impl AppInfo{
         if _info.global == "global" {
             //We are writing to /usr/share so we need sudo rights to create and write to a file 
             Command::new("sudo").args(["touch", (path.clone() + "/" + &_info.name.clone() + ".desktop").as_str()]).output().unwrap();
+             let s = Spinach::new("Creating .desktop file...");
+
             Command::new("sh").args(["-c", (info_string.clone() + " | sudo tee " + &path.clone() + "/" + &_info.name.clone() + ".desktop").as_str()]).output().unwrap();
+            s.succeed("Succesfully created file!");
+
         }else{
+            let s = Spinach::new("Creating .desktop file...");
+
             let mut file = OpenOptions::new().write(true).create(true).open(path + "/" + &_info.name.clone() + ".desktop").unwrap();
 
             writeln!(file, "{}", info_string).unwrap();
+            s.succeed("Succesfully created file!");
+
         }
     }
 
     ///Helper function for getting a Absolute path from a Relativ Path
     pub fn get_absolute_icon_path(icon_path: &Path) -> String{
         if !icon_path.exists() { //First check if the file even is existing.
-            println!("Path to file {} does not exist!", icon_path.to_str().unwrap());
+            println!("Error: Path to file {} does not exist!", icon_path.to_str().unwrap());
             return "invalid".to_string();
         }else {
             //Convert to absolute path

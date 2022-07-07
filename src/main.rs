@@ -1,26 +1,27 @@
 
-use std::io::stdin;
 use std::path::Path;
 use std::env;
 
 use clap::Parser;
+use requestty::Question;
 use serde::{Deserialize, Serialize};
+use fuzzy_matcher::{skim::SkimMatcherV2, FuzzyMatcher};
 
-use crate::converter::convert_categories_number;
-use crate::converter::convert_type_number;
+use requestty::question::{completions, Completions};
+
+
 use crate::info::AppInfo;
 use crate::info::AppType;
 
 mod info;
 mod detector;
-mod converter;
 
 //Paths for where the actuall .desktop files will go
 static GLOBAL_PATH: &str = "/usr/share/applications";
 static LOCAL_PATH: &str = "~/.local/share/applications";
 
 #[derive(Parser)]
-#[clap(author="Lucas Jaiser", version="1.1", about, long_about = "A CLI tool to create .desktop files with ease")]
+#[clap(author="Lucas Jaiser", version="1.2", about, long_about = "A CLI tool to create .desktop files with ease")]
 struct Cli {
     /// Name of the File you want to create
     #[clap(short, long)]
@@ -80,10 +81,10 @@ fn main() {
     let cli = Cli::parse();
     let cfg: Config = confy::load("mkDesktop").unwrap();
     let mut info: AppInfo;
-    let mut output_path: String;
+let mut output_path: String;
     let categorie: String;
     let app_type: String;
-    
+
     //Template Mode
     if cli.template {
         AppInfo::print_template();
@@ -153,65 +154,153 @@ fn main() {
     if cli.path.is_some() {
         output_path = cli.path.unwrap();
     }
-    
-    //takes the struct and writes it to the actual file in the correct Location based on input 
+   
+       //takes the struct and writes it to the actual file in the correct Location based on input 
     AppInfo::write_info_to_file(info, output_path);
-    
+        
     confy::store("mkDesktop", cfg).unwrap();
 
 }
 
+fn auto_complete(p: String) -> Completions<String> {
+    let current: &Path = p.as_ref();
+    let (mut dir, last) = if p.ends_with('/') {
+        (current, "")
+    } else {
+        let dir = current.parent().unwrap_or_else(|| "/".as_ref());
+        let last = current
+            .file_name()
+            .and_then(std::ffi::OsStr::to_str)
+            .unwrap_or("");
+        (dir, last)
+    };
+
+    if dir.to_str().unwrap().is_empty() {
+        dir = ".".as_ref();
+    }
+
+    let mut files: Completions<_> = match dir.read_dir() {
+        Ok(files) => files
+            .flatten()
+            .flat_map(|file| {
+                let path = file.path();
+                let is_dir = path.is_dir();
+                match path.into_os_string().into_string() {
+                    Ok(s) if is_dir => Some(s + "/"),
+                    Ok(s) => Some(s),
+                    Err(_) => None,
+                }
+            })
+            .collect(),
+        Err(_) => {
+            return completions![p];
+        }
+    };
+
+    if files.is_empty() {
+        return completions![p];
+    } else {
+        let fuzzer = SkimMatcherV2::default();
+        files.sort_by_cached_key(|file| fuzzer.fuzzy_match(file, last).unwrap_or(i64::MAX));
+        files
+    }
+}
+
+
 ///This function gathers information to the .Desktop file in a Guided form. 
 ///it leads you through all field you will need in the file to be valid. 
 ///Technically you only need Type, Name and Exec. But the rest is mostly Best Practice. 
+#[warn(unused_assignments)]
 fn guided_input() -> AppInfo{
 
     let mut name = String::new(); 
     let mut categories = String::new(); 
     let mut application_type = String::new();
-    let mut exec = String::new();
+    let mut exec;
     let mut global = String::new();
-    let mut icon = String::new();
+    let mut icon;
+    
 
-    println!("What name has your programm?");
-    stdin().read_line(&mut name).unwrap();
-    name = name.trim_end().to_string();
+    let questions = vec![Question::input("name")
+        .message("What is the name of the program?")
+        .build(), Question::select("application_type")
+        .message("What type of program is it?")
+        .choices(vec!["Application", "Link", "Directory"]).default(0)
+        .build(), Question::select("categories")
+        .message("Which Categorie does it belong to?")
+        .choices(vec!["AudioVideo", "Audio", "Video", "Development", "Education", "Game", "Graphics", "Network", "Office", "Settings", "System", "Utility"]).default(11)
+        .build(), Question::select("global")
+        .message("Do you want to install it globally or only for your current user?")
+        .choices(vec!["global", "local"]).default(0)
+        .build()];
+
+
+    let answer = requestty::prompt(questions).unwrap();
+
+    if answer.contains_key("name") {
+
+        name = answer.get("name").unwrap().as_string().unwrap().to_string();
+
+    }
+
+    if answer.contains_key("application_type") {
+        application_type = answer.get("application_type").unwrap().as_list_item().unwrap().text.clone();
+
+    }
+
+    if answer.contains_key("categories") {
+        categories = answer.get("categories").unwrap().as_list_item().unwrap().text.clone();
+
+    }
+    
+    if answer.contains_key("global") {
+        global = answer.get("global").unwrap().as_list_item().unwrap().text.clone();
+
+    }
 
     //Check for valid input, if input is invalid ask again instead of quiting.
-    while application_type.ne("Link") && application_type.ne("Application") && application_type.ne("Directory") {
-        println!("What type of programm is it? (1 = Application, 2 = Link, 3 = Directory)");
-        application_type = "".to_string();
-        stdin().read_line(&mut application_type).unwrap();
-        application_type = convert_type_number(application_type.trim_end()).unwrap().to_string();
+    loop{
+        exec = requestty::prompt_one(
+               requestty::Question::input("exec")
+                .message("What should be executed")
+                .auto_complete(|p, _| auto_complete(p))
+                .validate(|p, _| {
+                    if (p.as_ref() as &Path).exists() {
+                        Ok(())
+                    } else {
+                        Err(format!("file `{}` doesn't exist", p))
+                    }
+                }),
+            ).unwrap().try_into_string().unwrap();
+        if Path::new(&exec.clone()).exists() && exec != ""{
+            break;
+        }else{
+            println!("Error: Path does not exists. Try again!");
+        }
+    }
+
+    //Check for valid input, if input is invalid ask again instead of quiting.
+    loop{
+        icon = requestty::prompt_one(
+                requestty::Question::input("icon")
+                .message("Which icon should be used?")
+                .auto_complete(|p, _| auto_complete(p))
+                .validate(|p, _| {
+                    if (p.as_ref() as &Path).exists() {
+                        Ok(())
+                    } else {
+                        Err(format!("file `{}` doesn't exist", p))
+                    }
+                }),
+            ).unwrap().try_into_string().unwrap();
         
-    }
-
-    println!("Wich Categorie does it belong to? (Possible values are: 1 = AudioVideo, 2 = Audio, 3 = Video, 4 = Development, 5 = Education, 6 = Game, 7 = Graphics, 8 = Network, 9 = Office, 10 = Settings, 11 = System, 12 = Utility)");
-    stdin().read_line(&mut categories).unwrap();
-    categories = convert_categories_number(categories.trim_end()).unwrap().to_string();
-
-    //Check for valid input, if input is invalid ask again instead of quiting.
-    while !Path::new(&exec.clone()).exists() && exec == "" {
-        println!("What should be executed?");
-        stdin().read_line(&mut exec).unwrap();
-        exec = exec.trim_end().to_string();
-    }
-
-    //Check for valid input, if input is invalid ask again instead of quiting.
-    while global.ne("global") && global.ne("local") {
-        println!("Do you want to install it globally or only for your current user? (valid input: global, local)");
-        stdin().read_line(&mut global).unwrap();
-        global = global.trim_end().to_string();
-    }
-    
-    //Check for valid input, if input is invalid ask again instead of quiting.
-    while icon.eq("") || icon.eq("invalid") {
-        println!("Which Icon should be used?");
-        stdin().read_line(&mut icon).unwrap();
-        icon = icon.trim_end().to_string();
-    
         icon = AppInfo::get_absolute_icon_path(Path::new(&icon));
+        if icon != "invalid".to_string() {
+            break;
+        }
     }
-    return AppInfo::new(name.clone(), exec.clone(), categories.clone(), AppType::convert_app_type(&application_type.clone()).unwrap(), icon.clone(), global.clone());
+
+    
+    return AppInfo::new(name.clone(), exec, categories.clone(), AppType::convert_app_type(&application_type.clone()).unwrap(), icon, global.clone());
 
 }
