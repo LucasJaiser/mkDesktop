@@ -1,0 +1,7 @@
+[Desktop Entry]
+Version=1.0
+Name=test
+Exec=kitty
+Categories=System
+Type=Link
+Icon=tests/resource/test.png

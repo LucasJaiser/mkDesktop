@@ -24,7 +24,6 @@ pub enum AppType{
     Directory
 }
 
-
 impl AppType{
     ///Converts a AppType enum to String
     pub fn to_string(self) -> String{
@@ -56,7 +55,7 @@ impl AppInfo{
     
     pub fn convert_to_string(info: AppInfo) -> String{
         let mut result: String = "".to_string();
-        result.push_str("echo \"[Desktop Entry]\n");
+        result.push_str("[Desktop Entry]\n");
         result.push_str("Version=1.0");
         result.push_str("\n");
         result.push_str("Name=");
@@ -73,14 +72,23 @@ impl AppInfo{
         result.push_str("\n");
         result.push_str("Icon=");
         result = result + &info.icon.clone();
-        result.push_str("\"");
         return result;
     }
     
     ///Writes the given AppInfo to a actual file
-    pub fn write_info_to_file(_info: AppInfo, path: String){
+    pub fn write_info_to_file(_info: AppInfo, path: String, output: bool){
        
-        let info_string = AppInfo::convert_to_string(_info.clone()); 
+        let mut info_string = AppInfo::convert_to_string(_info.clone()); 
+
+        //Only out put the info_string since --output flag is set
+        if output {
+            println!("{}", info_string);
+            return;
+        }
+        
+        //prepare info_string for echo output
+        info_string = "echo \"".to_string() + &info_string;
+        info_string.push_str("\"");
         //Create the file and write all Informations we have to it
         if _info.global == "global" {
             //We are writing to /usr/share so we need sudo rights to create and write to a file 
@@ -131,13 +139,17 @@ impl AppInfo{
 
 #[cfg(test)]
 mod test{
+    
     use crate::AppType; 
     use crate::AppInfo;
-    use crate::converter::convert_categories_number;
     use crate::converter::convert_type_number;
+    use crate::converter::convert_categories_number;
+        
 
     #[test]
     fn test_app_type_to_string(){
+        
+
         let app: AppType = AppType::Application;
         assert_eq!(AppType::to_string(app),  String::from("Application"));
         assert_ne!(AppType::Link.to_string(),  String::from("Application"));

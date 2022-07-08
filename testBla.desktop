@@ -1,0 +1,7 @@
+[Desktop Entry]
+Version=1.0
+Name=testBla
+Exec=kitty
+Categories=System
+Type=Link
+Icon=tests/resource/test.png

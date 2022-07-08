@@ -9,12 +9,12 @@ use fuzzy_matcher::{skim::SkimMatcherV2, FuzzyMatcher};
 
 use requestty::question::{completions, Completions};
 
-
 use crate::info::AppInfo;
 use crate::info::AppType;
 
 mod info;
 mod detector;
+mod converter;
 
 //Paths for where the actuall .desktop files will go
 static GLOBAL_PATH: &str = "/usr/share/applications";
@@ -66,6 +66,9 @@ struct Cli {
     #[clap(short = 'p', long)]
     path: Option<String>,
 
+    ///Redirects output of the file to stdout
+    #[clap(short = 'o', long)]
+    output: bool,
 }
 
 #[derive(Default, Debug, Serialize, Deserialize)]
@@ -81,7 +84,7 @@ fn main() {
     let cli = Cli::parse();
     let cfg: Config = confy::load("mkDesktop").unwrap();
     let mut info: AppInfo;
-let mut output_path: String;
+    let mut output_path: String;
     let categorie: String;
     let app_type: String;
 
@@ -154,9 +157,9 @@ let mut output_path: String;
     if cli.path.is_some() {
         output_path = cli.path.unwrap();
     }
-   
+    
        //takes the struct and writes it to the actual file in the correct Location based on input 
-    AppInfo::write_info_to_file(info, output_path);
+    AppInfo::write_info_to_file(info, output_path, cli.output);
         
     confy::store("mkDesktop", cfg).unwrap();
 
@@ -238,7 +241,6 @@ fn guided_input() -> AppInfo{
     let answer = requestty::prompt(questions).unwrap();
 
     if answer.contains_key("name") {
-
         name = answer.get("name").unwrap().as_string().unwrap().to_string();
 
     }

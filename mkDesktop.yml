@@ -1,0 +1,403 @@
+# The configurations that used for the recording, feel free to edit them
+config:
+
+  # Specify a command to be executed
+  # like `/bin/bash -l`, `ls`, or any other commands
+  # the default is bash for Linux
+  # or powershell.exe for Windows
+  command: bash -l
+  
+  # Specify the current working directory path
+  # the default is the current working directory path
+  cwd: /home/dev/.dev/mkDesktop
+  
+  # Export additional ENV variables
+  env:
+    recording: true
+  
+  # Explicitly set the number of columns
+  # or use `auto` to take the current
+  # number of columns of your shell
+  cols: 142
+  
+  # Explicitly set the number of rows
+  # or use `auto` to take the current
+  # number of rows of your shell
+  rows: 55
+  
+  # Amount of times to repeat GIF
+  # If value is -1, play once
+  # If value is 0, loop indefinitely
+  # If value is a positive number, loop n times
+  repeat: 0
+  
+  # Quality
+  # 1 - 100
+  quality: 100
+  
+  # Delay between frames in ms
+  # If the value is `auto` use the actual recording delays
+  frameDelay: auto
+  
+  # Maximum delay between frames in ms
+  # Ignored if the `frameDelay` isn't set to `auto`
+  # Set to `auto` to prevent limiting the max idle time
+  maxIdleTime: 2000
+  
+  # The surrounding frame box
+  # The `type` can be null, window, floating, or solid`
+  # To hide the title use the value null
+  # Don't forget to add a backgroundColor style with a null as type
+  frameBox:
+    type: floating
+    title: Terminalizer
+    style:
+      border: 0px black solid
+      # boxShadow: none
+      # margin: 0px
+  
+  # Add a watermark image to the rendered gif
+  # You need to specify an absolute path for
+  # the image on your machine or a URL, and you can also
+  # add your own CSS styles
+  watermark:
+    imagePath: null
+    style:
+      position: absolute
+      right: 15px
+      bottom: 15px
+      width: 100px
+      opacity: 0.9
+  
+  # Cursor style can be one of
+  # `block`, `underline`, or `bar`
+  cursorStyle: block
+  
+  # Font family
+  # You can use any font that is installed on your machine
+  # in CSS-like syntax
+  fontFamily: "Monaco, Lucida Console, Ubuntu Mono, Monospace"
+  
+  # The size of the font
+  fontSize: 12
+  
+  # The height of lines
+  lineHeight: 1
+  
+  # The spacing between letters
+  letterSpacing: 0
+  
+  # Theme
+  theme:
+    background: "transparent"
+    foreground: "#afafaf"
+    cursor: "#c7c7c7"
+    black: "#232628"
+    red: "#fc4384"
+    green: "#b3e33b"
+    yellow: "#ffa727"
+    blue: "#75dff2"
+    magenta: "#ae89fe"
+    cyan: "#708387"
+    white: "#d5d5d0"
+    brightBlack: "#626566"
+    brightRed: "#ff7fac"
+    brightGreen: "#c8ed71"
+    brightYellow: "#ebdf86"
+    brightBlue: "#75dff2"
+    brightMagenta: "#ae89fe"
+    brightCyan: "#b1c6ca"
+    brightWhite: "#f9f9f4"
+  
+# Records, feel free to edit them
+records:
+  - delay: 342
+    content: "\e]0;dev@dev:~/.dev/mkDesktop\a\e[?2004h\e]0;dev@dev: ~/.dev/mkDesktop\adev@dev:~/.dev/mkDesktop$ "
+  - delay: 2168
+    content: m
+  - delay: 184
+    content: k
+  - delay: 1424
+    content: _
+  - delay: 264
+    content: d
+  - delay: 184
+    content: e
+  - delay: 176
+    content: s
+  - delay: 136
+    content: k
+  - delay: 152
+    content: t
+  - delay: 88
+    content: o
+  - delay: 152
+    content: p
+  - delay: 1440
+    content: ' '
+  - delay: 208
+    content: '-'
+  - delay: 344
+    content: G
+  - delay: 552
+    content: "\r\n\e[?2004l\r---------------Guided Mode----------------\r\n\e[6n\e[55;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat is the name of the program?\e[22m \e[38;5;8m›\e[39m \e[55;38H"
+  - delay: 1500
+    content: "\e[55;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat is the name of the program?\e[22m \e[38;5;8m›\e[39m t\e[55;39H"
+  - delay: 120
+    content: "\e[55;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat is the name of the program?\e[22m \e[38;5;8m›\e[39m te\e[55;40H"
+  - delay: 192
+    content: "\e[55;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat is the name of the program?\e[22m \e[38;5;8m›\e[39m tes\e[55;41H"
+  - delay: 192
+    content: "\e[55;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat is the name of the program?\e[22m \e[38;5;8m›\e[39m test\e[55;42H"
+  - delay: 768
+    content: "\e[55;1H\e[J\e[38;5;10m✔\e[39m \e[1mWhat is the name of the program?\e[22m \e[38;5;8m·\e[39m \e[38;5;6mtest\e[39m\r\n\e[?25l\e[6n\e[3S\e[3A\e[52;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat type of program is it?\e[22m \e[38;5;8m›\e[39m \e[53;1H\e[38;5;6m❯ Application\e[54;3H\e[39m\e[54;1H  Link\e[55;3H\e[39m\e[55;1H  Directory\e[56;3H\e[39m\e[56;1H"
+  - delay: 1164
+    content: "\e[52;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat type of program is it?\e[22m \e[38;5;8m›\e[39m \e[53;1H  Application\e[54;3H\e[39m\e[54;1H\e[38;5;6m❯ Link\e[55;3H\e[39m\e[55;1H  Directory\e[56;3H\e[39m\e[56;1H"
+  - delay: 696
+    content: "\e[52;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat type of program is it?\e[22m \e[38;5;8m›\e[39m \e[53;1H  Application\e[54;3H\e[39m\e[54;1H  Link\e[55;3H\e[39m\e[55;1H\e[38;5;6m❯ Directory\e[56;3H\e[39m\e[56;1H"
+  - delay: 264
+    content: "\e[52;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat type of program is it?\e[22m \e[38;5;8m›\e[39m \e[53;1H  Application\e[54;3H\e[39m\e[54;1H\e[38;5;6m❯ Link\e[55;3H\e[39m\e[55;1H  Directory\e[56;3H\e[39m\e[56;1H"
+  - delay: 192
+    content: "\e[52;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat type of program is it?\e[22m \e[38;5;8m›\e[39m \e[53;1H\e[38;5;6m❯ Application\e[54;3H\e[39m\e[54;1H  Link\e[55;3H\e[39m\e[55;1H  Directory\e[56;3H\e[39m\e[56;1H"
+  - delay: 304
+    content: "\e[52;1H\e[J\e[?25h\e[38;5;10m✔\e[39m \e[1mWhat type of program is it?\e[22m \e[38;5;8m·\e[39m \e[38;5;6mApplication\e[39m\r\n\e[?25l\e[6n\e[10S\e[10A\e[43;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich Categorie does it belong to?\e[22m \e[38;5;8m›\e[39m \e[44;1H  AudioVideo\e[45;3H\e[39m\e[45;1H  Audio\e[46;3H\e[39m\e[46;1H  Video\e[47;3H\e[39m\e[47;1H  Development\e[48;3H\e[39m\e[48;1H  Education\e[49;3H\e[39m\e[49;1H  Game\e[50;3H\e[39m\e[50;1H  Graphics\e[51;3H\e[39m\e[51;1H  Network\e[52;3H\e[39m\e[52;1H  Office\e[53;3H\e[39m\e[53;1H  Settings\e[54;3H\e[39m\e[54;1H  System\e[55;3H\e[39m\e[55;1H\e[38;5;6m❯ Utility\e[56;3H\e[39m\e[56;1H"
+  - delay: 708
+    content: "\e[43;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich Categorie does it belong to?\e[22m \e[38;5;8m›\e[39m \e[44;1H  AudioVideo\e[45;3H\e[39m\e[45;1H  Audio\e[46;3H\e[39m\e[46;1H  Video\e[47;3H\e[39m\e[47;1H  Development\e[48;3H\e[39m\e[48;1H  Education\e[49;3H\e[39m\e[49;1H  Game\e[50;3H\e[39m\e[50;1H  Graphics\e[51;3H\e[39m\e[51;1H  Network\e[52;3H\e[39m\e[52;1H  Office\e[53;3H\e[39m\e[53;1H  Settings\e[54;3H\e[39m\e[54;1H\e[38;5;6m❯ System\e[55;3H\e[39m\e[55;1H  Utility\e[56;3H\e[39m\e[56;1H"
+  - delay: 200
+    content: "\e[43;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich Categorie does it belong to?\e[22m \e[38;5;8m›\e[39m \e[44;1H  AudioVideo\e[45;3H\e[39m\e[45;1H  Audio\e[46;3H\e[39m\e[46;1H  Video\e[47;3H\e[39m\e[47;1H  Development\e[48;3H\e[39m\e[48;1H  Education\e[49;3H\e[39m\e[49;1H  Game\e[50;3H\e[39m\e[50;1H  Graphics\e[51;3H\e[39m\e[51;1H  Network\e[52;3H\e[39m\e[52;1H  Office\e[53;3H\e[39m\e[53;1H\e[38;5;6m❯ Settings\e[54;3H\e[39m\e[54;1H  System\e[55;3H\e[39m\e[55;1H  Utility\e[56;3H\e[39m\e[56;1H"
+  - delay: 176
+    content: "\e[43;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich Categorie does it belong to?\e[22m \e[38;5;8m›\e[39m \e[44;1H  AudioVideo\e[45;3H\e[39m\e[45;1H  Audio\e[46;3H\e[39m\e[46;1H  Video\e[47;3H\e[39m\e[47;1H  Development\e[48;3H\e[39m\e[48;1H  Education\e[49;3H\e[39m\e[49;1H  Game\e[50;3H\e[39m\e[50;1H  Graphics\e[51;3H\e[39m\e[51;1H  Network\e[52;3H\e[39m\e[52;1H\e[38;5;6m❯ Office\e[53;3H\e[39m\e[53;1H  Settings\e[54;3H\e[39m\e[54;1H  System\e[55;3H\e[39m\e[55;1H  Utility\e[56;3H\e[39m\e[56;1H"
+  - delay: 160
+    content: "\e[43;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich Categorie does it belong to?\e[22m \e[38;5;8m›\e[39m \e[44;1H  AudioVideo\e[45;3H\e[39m\e[45;1H  Audio\e[46;3H\e[39m\e[46;1H  Video\e[47;3H\e[39m\e[47;1H  Development\e[48;3H\e[39m\e[48;1H  Education\e[49;3H\e[39m\e[49;1H  Game\e[50;3H\e[39m\e[50;1H  Graphics\e[51;3H\e[39m\e[51;1H\e[38;5;6m❯ Network\e[52;3H\e[39m\e[52;1H  Office\e[53;3H\e[39m\e[53;1H  Settings\e[54;3H\e[39m\e[54;1H  System\e[55;3H\e[39m\e[55;1H  Utility\e[56;3H\e[39m\e[56;1H"
+  - delay: 216
+    content: "\e[43;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich Categorie does it belong to?\e[22m \e[38;5;8m›\e[39m \e[44;1H  AudioVideo\e[45;3H\e[39m\e[45;1H  Audio\e[46;3H\e[39m\e[46;1H  Video\e[47;3H\e[39m\e[47;1H  Development\e[48;3H\e[39m\e[48;1H  Education\e[49;3H\e[39m\e[49;1H  Game\e[50;3H\e[39m\e[50;1H  Graphics\e[51;3H\e[39m\e[51;1H  Network\e[52;3H\e[39m\e[52;1H\e[38;5;6m❯ Office\e[53;3H\e[39m\e[53;1H  Settings\e[54;3H\e[39m\e[54;1H  System\e[55;3H\e[39m\e[55;1H  Utility\e[56;3H\e[39m\e[56;1H"
+  - delay: 184
+    content: "\e[43;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich Categorie does it belong to?\e[22m \e[38;5;8m›\e[39m \e[44;1H  AudioVideo\e[45;3H\e[39m\e[45;1H  Audio\e[46;3H\e[39m\e[46;1H  Video\e[47;3H\e[39m\e[47;1H  Development\e[48;3H\e[39m\e[48;1H  Education\e[49;3H\e[39m\e[49;1H  Game\e[50;3H\e[39m\e[50;1H  Graphics\e[51;3H\e[39m\e[51;1H  Network\e[52;3H\e[39m\e[52;1H  Office\e[53;3H\e[39m\e[53;1H\e[38;5;6m❯ Settings\e[54;3H\e[39m\e[54;1H  System\e[55;3H\e[39m\e[55;1H  Utility\e[56;3H\e[39m\e[56;1H"
+  - delay: 168
+    content: "\e[43;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich Categorie does it belong to?\e[22m \e[38;5;8m›\e[39m \e[44;1H  AudioVideo\e[45;3H\e[39m\e[45;1H  Audio\e[46;3H\e[39m\e[46;1H  Video\e[47;3H\e[39m\e[47;1H  Development\e[48;3H\e[39m\e[48;1H  Education\e[49;3H\e[39m\e[49;1H  Game\e[50;3H\e[39m\e[50;1H  Graphics\e[51;3H\e[39m\e[51;1H  Network\e[52;3H\e[39m\e[52;1H  Office\e[53;3H\e[39m\e[53;1H  Settings\e[54;3H\e[39m\e[54;1H\e[38;5;6m❯ System\e[55;3H\e[39m\e[55;1H  Utility\e[56;3H\e[39m\e[56;1H"
+  - delay: 176
+    content: "\e[43;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich Categorie does it belong to?\e[22m \e[38;5;8m›\e[39m \e[44;1H  AudioVideo\e[45;3H\e[39m\e[45;1H  Audio\e[46;3H\e[39m\e[46;1H  Video\e[47;3H\e[39m\e[47;1H  Development\e[48;3H\e[39m\e[48;1H  Education\e[49;3H\e[39m\e[49;1H  Game\e[50;3H\e[39m\e[50;1H  Graphics\e[51;3H\e[39m\e[51;1H  Network\e[52;3H\e[39m\e[52;1H  Office\e[53;3H\e[39m\e[53;1H  Settings\e[54;3H\e[39m\e[54;1H  System\e[55;3H\e[39m\e[55;1H\e[38;5;6m❯ Utility\e[56;3H\e[39m\e[56;1H"
+  - delay: 656
+    content: "\e[43;1H\e[J\e[?25h\e[38;5;10m✔\e[39m \e[1mWhich Categorie does it belong to?\e[22m \e[38;5;8m·\e[39m \e[38;5;6mUtility\e[39m\r\n\e[?25l\e[6n\e[44;1H\e[J\e[38;5;10m? \e[39m\e[1mDo you want to install it globally or only for your current user?\e[22m \e[38;5;8m›\e[39m \e[45;1H\e[38;5;6m❯ global\e[46;3H\e[39m\e[46;1H  local\e[47;3H\e[39m\e[47;1H"
+  - delay: 1485
+    content: "\e[44;1H\e[J\e[?25h\e[38;5;10m✔\e[39m \e[1mDo you want to install it globally or only for your current user?\e[22m \e[38;5;8m·\e[39m \e[38;5;6mglobal\e[39m\r\n\e[6n\e[45;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat should be executed\e[22m \e[38;5;8m›\e[39m \e[45;29H"
+  - delay: 2196
+    content: "\e[45;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat should be executed\e[22m \e[38;5;8m›\e[39m /\e[45;30H"
+  - delay: 920
+    content: "\e[45;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat should be executed\e[22m \e[38;5;8m›\e[39m /u\e[45;31H"
+  - delay: 128
+    content: "\e[45;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat should be executed\e[22m \e[38;5;8m›\e[39m /us\e[45;32H"
+  - delay: 216
+    content: "\e[5S\e[5A\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat should be executed\e[22m \e[38;5;8m›\e[39m /.garuda-tools\e[41;1H\e[38;5;6m❯ /.garuda-tools\e[42;3H\e[39m\e[42;1H  /usr/\e[43;3H\e[39m\e[43;1H  /home/\e[44;3H\e[39m\e[44;1H  /root/\e[45;3H\e[39m\e[45;1H  /srv/\e[46;3H\e[39m\e[46;1H  /var/\e[47;3H\e[39m\e[47;1H  /boot/\e[48;3H\e[39m\e[48;1H  /dev/\e[49;3H\e[39m\e[49;1H  /proc/\e[50;3H\e[39m\e[50;1H  /run/\e[51;3H\e[39m\e[51;1H  /sys/\e[52;3H\e[39m\e[52;1H  /etc/\e[53;3H\e[39m\e[53;1H  /mnt/\e[54;3H\e[39m\e[54;1H  /opt/\e[55;3H\e[39m\e[55;1H\e[38;5;8m(Move up and down to reveal more choices)\e[39m\e[56;1H\e[40;43H"
+  - delay: 1216
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat should be executed\e[22m \e[38;5;8m›\e[39m /usr/\e[41;1H  /.garuda-tools\e[42;3H\e[39m\e[42;1H\e[38;5;6m❯ /usr/\e[43;3H\e[39m\e[43;1H  /home/\e[44;3H\e[39m\e[44;1H  /root/\e[45;3H\e[39m\e[45;1H  /srv/\e[46;3H\e[39m\e[46;1H  /var/\e[47;3H\e[39m\e[47;1H  /boot/\e[48;3H\e[39m\e[48;1H  /dev/\e[49;3H\e[39m\e[49;1H  /proc/\e[50;3H\e[39m\e[50;1H  /run/\e[51;3H\e[39m\e[51;1H  /sys/\e[52;3H\e[39m\e[52;1H  /etc/\e[53;3H\e[39m\e[53;1H  /mnt/\e[54;3H\e[39m\e[54;1H  /opt/\e[55;3H\e[39m\e[55;1H\e[38;5;8m(Move up and down to reveal more choices)\e[39m\e[56;1H\e[40;34H"
+  - delay: 712
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat should be executed\e[22m \e[38;5;8m›\e[39m /usr/\e[40;34H"
+  - delay: 1440
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat should be executed\e[22m \e[38;5;8m›\e[39m /usr/b\e[40;35H"
+  - delay: 120
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat should be executed\e[22m \e[38;5;8m›\e[39m /usr/bi\e[40;36H"
+  - delay: 136
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat should be executed\e[22m \e[38;5;8m›\e[39m /usr/bin\e[40;37H"
+  - delay: 1328
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat should be executed\e[22m \e[38;5;8m›\e[39m /usr/bin/\e[40;38H"
+  - delay: 318
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat should be executed\e[22m \e[38;5;8m›\e[39m /usr/bin/bunzip2\e[41;1H\e[38;5;6m❯ /usr/bin/bunzip2\e[42;3H\e[39m\e[42;1H  /usr/bin/bzcat\e[43;3H\e[39m\e[43;1H  /usr/bin/cache_check\e[44;3H\e[39m\e[44;1H  /usr/bin/cache_dump\e[45;3H\e[39m\e[45;1H  /usr/bin/cache_metadata_size\e[46;3H\e[39m\e[46;1H  /usr/bin/cache_repair\e[47;3H\e[39m\e[47;1H  /usr/bin/cache_restore\e[48;3H\e[39m\e[48;1H  /usr/bin/cache_writeback\e[49;3H\e[39m\e[49;1H  /usr/bin/debugfs.reiserfs\e[50;3H\e[39m\e[50;1H  /usr/bin/era_check\e[51;3H\e[39m\e[51;1H  /usr/bin/era_dump\e[52;3H\e[39m\e[52;1H  /usr/bin/era_invalidate\e[53;3H\e[39m\e[53;1H  /usr/bin/era_restore\e[54;3H\e[39m\e[54;1H  /usr/bin/fsck.reiserfs\e[55;3H\e[39m\e[55;1H\e[38;5;8m(Move up and down to reveal more choices)\e[39m\e[56;1H\e[40;45H"
+  - delay: 818
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat should be executed\e[22m \e[38;5;8m›\e[39m /usr/bin/bunzip\e[40;44H"
+  - delay: 184
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat should be executed\e[22m \e[38;5;8m›\e[39m /usr/bin/bunzi\e[40;43H"
+  - delay: 136
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat should be executed\e[22m \e[38;5;8m›\e[39m /usr/bin/bunz\e[40;42H"
+  - delay: 160
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat should be executed\e[22m \e[38;5;8m›\e[39m /usr/bin/bun\e[40;41H"
+  - delay: 144
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat should be executed\e[22m \e[38;5;8m›\e[39m /usr/bin/bu\e[40;40H"
+  - delay: 144
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat should be executed\e[22m \e[38;5;8m›\e[39m /usr/bin/b\e[40;39H"
+  - delay: 144
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat should be executed\e[22m \e[38;5;8m›\e[39m /usr/bin/\e[40;38H"
+  - delay: 416
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat should be executed\e[22m \e[38;5;8m›\e[39m /usr/bin/c\e[40;39H"
+  - delay: 104
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat should be executed\e[22m \e[38;5;8m›\e[39m /usr/bin/ch\e[40;40H"
+  - delay: 152
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat should be executed\e[22m \e[38;5;8m›\e[39m /usr/bin/chr\e[40;41H"
+  - delay: 8
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat should be executed\e[22m \e[38;5;8m›\e[39m /usr/bin/chrt\e[40;42H"
+  - delay: 80
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat should be executed\e[22m \e[38;5;8m›\e[39m /usr/bin/chrto\e[40;43H"
+  - delay: 168
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat should be executed\e[22m \e[38;5;8m›\e[39m /usr/bin/chrtom\e[40;44H"
+  - delay: 472
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat should be executed\e[22m \e[38;5;8m›\e[39m /usr/bin/chrto\e[40;43H"
+  - delay: 160
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat should be executed\e[22m \e[38;5;8m›\e[39m /usr/bin/chrt\e[40;42H"
+  - delay: 128
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat should be executed\e[22m \e[38;5;8m›\e[39m /usr/bin/chr\e[40;41H"
+  - delay: 760
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat should be executed\e[22m \e[38;5;8m›\e[39m /usr/bin/chro\e[40;42H"
+  - delay: 176
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat should be executed\e[22m \e[38;5;8m›\e[39m /usr/bin/chrom\e[40;43H"
+  - delay: 304
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat should be executed\e[22m \e[38;5;8m›\e[39m /usr/bin/chromi\e[40;44H"
+  - delay: 192
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat should be executed\e[22m \e[38;5;8m›\e[39m /usr/bin/chromiu\e[40;45H"
+  - delay: 176
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhat should be executed\e[22m \e[38;5;8m›\e[39m /usr/bin/chromium\e[40;46H"
+  - delay: 1936
+    content: "\e[40;1H\e[J\e[38;5;10m✔\e[39m \e[1mWhat should be executed\e[22m \e[38;5;8m·\e[39m \e[38;5;6m/usr/bin/chromium\e[39m\r\n\e[6n\e[41;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m \e[41;32H"
+  - delay: 2124
+    content: "\e[41;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /\e[41;33H"
+  - delay: 488
+    content: "\e[41;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /h\e[41;34H"
+  - delay: 144
+    content: "\e[41;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /ho\e[41;35H"
+  - delay: 120
+    content: "\e[41;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /hom\e[41;36H"
+  - delay: 120
+    content: "\e[41;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home\e[41;37H"
+  - delay: 168
+    content: "\e[41;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/\e[41;38H"
+  - delay: 296
+    content: "\e[41;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/d\e[41;39H"
+  - delay: 184
+    content: "\e[41;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/de\e[41;40H"
+  - delay: 176
+    content: "\e[41;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev\e[41;41H"
+  - delay: 184
+    content: "\e[41;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/\e[41;42H"
+  - delay: 864
+    content: "\e[41;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.\e[41;43H"
+  - delay: 137
+    content: "\e[41;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.d\e[41;44H"
+  - delay: 159
+    content: "\e[41;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.de\e[41;45H"
+  - delay: 152
+    content: "\e[41;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dev\e[41;46H"
+  - delay: 241
+    content: "\e[1S\e[1A\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dartServer/\e[41;1H\e[38;5;6m❯ /home/dev/.dartServer/\e[42;3H\e[39m\e[42;1H  /home/dev/.dev/\e[43;3H\e[39m\e[43;1H  /home/dev/.bash_logout\e[44;3H\e[39m\e[44;1H  /home/dev/.bash_profile\e[45;3H\e[39m\e[45;1H  /home/dev/.config/\e[46;3H\e[39m\e[46;1H  /home/dev/.kde4/\e[47;3H\e[39m\e[47;1H  /home/dev/.local/\e[48;3H\e[39m\e[48;1H  /home/dev/.xinitrc\e[49;3H\e[39m\e[49;1H  /home/dev/Schreibtisch/\e[50;3H\e[39m\e[50;1H  /home/dev/Downloads/\e[51;3H\e[39m\e[51;1H  /home/dev/Vorlagen/\e[52;3H\e[39m\e[52;1H  /home/dev/Öffentlich/\e[53;3H\e[39m\e[53;1H  /home/dev/Dokumente/\e[54;3H\e[39m\e[54;1H  /home/dev/Musik/\e[55;3H\e[39m\e[55;1H\e[38;5;8m(Move up and down to reveal more choices)\e[39m\e[56;1H\e[40;54H"
+  - delay: 783
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dartServer\e[40;53H"
+  - delay: 500
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dartServe\e[40;52H"
+  - delay: 30
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dartServ\e[40;51H"
+  - delay: 30
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dartSer\e[40;50H"
+  - delay: 30
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dartSe\e[40;49H"
+  - delay: 31
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dartS\e[40;48H"
+  - delay: 31
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dart\e[40;47H"
+  - delay: 31
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dar\e[40;46H"
+  - delay: 30
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.da\e[40;45H"
+  - delay: 239
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.d\e[40;44H"
+  - delay: 176
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.\e[40;43H"
+  - delay: 1984
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.d\e[40;44H"
+  - delay: 192
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.de\e[40;45H"
+  - delay: 176
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dev\e[40;46H"
+  - delay: 280
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dev/\e[40;47H"
+  - delay: 912
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dev/m\e[40;48H"
+  - delay: 184
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dev/mk\e[40;49H"
+  - delay: 344
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dev/mkD\e[40;50H"
+  - delay: 192
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dev/mkDe\e[40;51H"
+  - delay: 225
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dev/mkDes\e[40;52H"
+  - delay: 223
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dev/mkDesk\e[40;53H"
+  - delay: 639
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dev/mkDesktop/\e[41;1H\e[38;5;6m❯ /home/dev/.dev/mkDesktop/\e[42;3H\e[39m\e[42;1H  /home/dev/.dev/TestProject/\e[43;3H\e[39m\e[43;1H  /home/dev/.dev/ExpenseManager/\e[44;3H\e[39m\e[44;1H  /home/dev/.dev/installscript/\e[45;3H\e[39m\e[45;1H  /home/dev/.dev/note/\e[46;3H\e[39m\e[46;1H  /home/dev/.dev/ProjectCreator/\e[47;3H\e[39m\e[47;1H  /home/dev/.dev/testRust/\e[48;3H\e[39m\e[48;1H  /home/dev/.dev/TestIntelli/\e[49;3H\e[39m\e[49;1H  /home/dev/.dev/stk500Test/\e[50;3H\e[39m\e[50;1H  /home/dev/.dev/Blinky_interrupt/\e[51;3H\e[39m\e[51;1H  /home/dev/.dev/wpsp/\e[52;3H\e[39m\e[52;1H  /home/dev/.dev/musicplatform/\e[53;3H\e[39m\e[53;1H  /home/dev/.dev/algonometrie/\e[54;3H\e[39m\e[54;1H  /home/dev/.dev/dnd/\e[55;3H\e[39m\e[55;1H\e[38;5;8m(Move up and down to reveal more choices)\e[39m\e[56;1H\e[40;57H"
+  - delay: 1794
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dev/mkDesktop/t\e[40;58H"
+  - delay: 111
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dev/mkDesktop/te\e[40;59H"
+  - delay: 192
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dev/mkDesktop/tes\e[40;60H"
+  - delay: 144
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dev/mkDesktop/test\e[40;61H"
+  - delay: 120
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dev/mkDesktop/mkDesktop.yml\e[41;1H\e[38;5;6m❯ /home/dev/.dev/mkDesktop/mkDesktop.yml\e[42;3H\e[39m\e[42;1H  /home/dev/.dev/mkDesktop/tests/\e[43;3H\e[39m\e[43;1H  /home/dev/.dev/mkDesktop/.git/\e[44;3H\e[39m\e[44;1H  /home/dev/.dev/mkDesktop/.gitignore\e[45;3H\e[39m\e[45;1H  /home/dev/.dev/mkDesktop/src/\e[46;3H\e[39m\e[46;1H  /home/dev/.dev/mkDesktop/target/\e[47;3H\e[39m\e[47;1H  /home/dev/.dev/mkDesktop/.github/\e[48;3H\e[39m\e[48;1H  /home/dev/.dev/mkDesktop/LICENSE\e[49;3H\e[39m\e[49;1H  /home/dev/.dev/mkDesktop/CONTRIBUTING.md\e[50;3H\e[39m\e[50;1H  /home/dev/.dev/mkDesktop/Cargo.lock\e[51;3H\e[39m\e[51;1H  /home/dev/.dev/mkDesktop/README.md\e[52;3H\e[39m\e[52;1H  /home/dev/.dev/mkDesktop/Cargo.toml\e[53;3H\e[39m\e[53;1H\e[40;70H"
+  - delay: 728
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dev/mkDesktop/mkDesktop.ym\e[40;69H"
+  - delay: 501
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dev/mkDesktop/mkDesktop.y\e[40;68H"
+  - delay: 30
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dev/mkDesktop/mkDesktop.\e[40;67H"
+  - delay: 30
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dev/mkDesktop/mkDesktop\e[40;66H"
+  - delay: 30
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dev/mkDesktop/mkDeskto\e[40;65H"
+  - delay: 31
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dev/mkDesktop/mkDeskt\e[40;64H"
+  - delay: 31
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dev/mkDesktop/mkDesk\e[40;63H"
+  - delay: 31
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dev/mkDesktop/mkDes\e[40;62H"
+  - delay: 30
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dev/mkDesktop/mkDe\e[40;61H"
+  - delay: 31
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dev/mkDesktop/mkD\e[40;60H"
+  - delay: 166
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dev/mkDesktop/mk\e[40;59H"
+  - delay: 176
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dev/mkDesktop/m\e[40;58H"
+  - delay: 184
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dev/mkDesktop/\e[40;57H"
+  - delay: 552
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dev/mkDesktop/t\e[40;58H"
+  - delay: 112
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dev/mkDesktop/te\e[40;59H"
+  - delay: 208
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dev/mkDesktop/tes\e[40;60H"
+  - delay: 231
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dev/mkDesktop/test\e[40;61H"
+  - delay: 1416
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dev/mkDesktop/tests\e[40;62H"
+  - delay: 385
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dev/mkDesktop/tests/\e[40;63H"
+  - delay: 1103
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dev/mkDesktop/tests/resource/\e[40;72H"
+  - delay: 577
+    content: "\e[40;1H\e[J\e[38;5;10m? \e[39m\e[1mWhich icon should be used?\e[22m \e[38;5;8m›\e[39m /home/dev/.dev/mkDesktop/tests/resource/test.png\e[40;80H"
+  - delay: 783
+    content: "\e[40;1H\e[J\e[38;5;10m✔\e[39m \e[1mWhich icon should be used?\e[22m \e[38;5;8m·\e[39m \e[38;5;6m/home/dev/.dev/mkDesktop/tests/resource/test.png\e[39m\r\n"
+  - delay: 6
+    content: '[sudo] password for dev: '
+  - delay: 850
+    content: '*'
+  - delay: 232
+    content: '*'
+  - delay: 217
+    content: '*'
+  - delay: 528
+    content: '*'
+  - delay: 255
+    content: '*'
+  - delay: 297
+    content: '*'
+  - delay: 128
+    content: '*'
+  - delay: 143
+    content: '*'
+  - delay: 337
+    content: "\b \b\b \b\b \b\b \b\b \b\b \b\b \b\b \b\r\n"
+  - delay: 8
+    content: "\e[?25l\e[2K\r\e[36m⠋\e[0m Creating .desktop file..."
+  - delay: 80
+    content: "\e[2K\r\e[32m✔\e[0m Succesfully created file!\r\n\e[?25h\e]0;dev@dev:~/.dev/mkDesktop\a\e[?2004h\e]0;dev@dev: ~/.dev/mkDesktop\adev@dev:~/.dev/mkDesktop$ "
+  - delay: 3286
+    content: "\e[?2004l\r\r\nlogout\r\n"
