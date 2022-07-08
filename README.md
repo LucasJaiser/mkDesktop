@@ -73,7 +73,7 @@ OPTIONS:
 
     -n, --name <NAME>
             Name of the File you want to create
-
+    -o, --output                     Redirects output of the file to stdout
     -p, --path <PATH>
             Path in which the file will be written. Warning: Overwrites the global and local Path(if
             the global parameter is set it will be no longer active. The app will use this Path)
