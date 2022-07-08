@@ -14,7 +14,6 @@ use crate::info::AppType;
 
 mod info;
 mod detector;
-mod converter;
 
 //Paths for where the actuall .desktop files will go
 static GLOBAL_PATH: &str = "/usr/share/applications";
