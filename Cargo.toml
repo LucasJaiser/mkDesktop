@@ -15,5 +15,5 @@ clap = { version = "3.1.9", features = ["derive"] }
 confy = {version = "0.4"}
 serde = { version = "1.0", features = ["derive"] }
 requestty = "0.4.1"
-fuzzy-matcher = "*"
+fuzzy-matcher = "0.3.7"
 spinach = "2"
