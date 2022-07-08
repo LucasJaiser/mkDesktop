@@ -1,6 +1,3 @@
-
-
-
 pub fn convert_categories_number(number: &str) -> Result<String, String>{
 
     match number{
