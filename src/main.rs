@@ -20,7 +20,7 @@ static GLOBAL_PATH: &str = "/usr/share/applications";
 static LOCAL_PATH: &str = "~/.local/share/applications";
 
 #[derive(Parser)]
-#[clap(author="Lucas Jaiser", version="1.2", about, long_about = "A CLI tool to create .desktop files with ease")]
+#[clap(author="Lucas Jaiser", version="1.2.1", about, long_about = "A CLI tool to create .desktop files with ease")]
 struct Cli {
     /// Name of the File you want to create
     #[clap(short, long)]

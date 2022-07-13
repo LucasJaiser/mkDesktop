@@ -1,12 +1,13 @@
 [package]
 name = "mk_desktop"
-version = "1.2.0"
+version = "1.2.1"
 edition = "2021"
 license = "MIT OR Apache-2.0"
 description = "A CLI tool to create .desktop files with ease"
 homepage = "https://github.com/LucasJaiser/mkDesktop"
 repository = "https://github.com/LucasJaiser/mkDesktop"
 readme = "README.md"
+categories = ["command-line-interface"]
 keywords = ["cli", "utility", "generator", "terminal", "tool"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
