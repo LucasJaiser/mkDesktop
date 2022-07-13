@@ -7,7 +7,7 @@ description = "A CLI tool to create .desktop files with ease"
 homepage = "https://github.com/LucasJaiser/mkDesktop"
 repository = "https://github.com/LucasJaiser/mkDesktop"
 readme = "README.md"
-
+keywords = ["cli", "utility", "generator", "terminal", "tool"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
